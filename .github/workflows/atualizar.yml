@@ -33,6 +33,7 @@ jobs:
       - run: npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PLANTAO_ANTERIOR: https://luizaugustodev.github.io/plantao/noticias.json # cache de fotos da rodada anterior
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
