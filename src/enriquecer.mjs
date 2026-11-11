@@ -29,6 +29,9 @@ function meta(html, nomes) {
   return "";
 }
 
+// Ícone, logo ou cartão genérico (ex.: o print automático de release do GitHub) não serve de foto.
+const imagemRuim = (u) => /(icon|logo|avatar|favicon|sprite|default-og|placeholder|opengraph\.githubassets\.com)/i.test(u);
+
 async function lerPagina(url) {
   const r = await fetch(url, {
     headers: { "user-agent": UA, accept: "text/html,application/xhtml+xml" },
@@ -49,8 +52,7 @@ async function lerPagina(url) {
   let img = meta(html, ["og:image", "og:image:url", "twitter:image", "twitter:image:src"]);
   if (img) { try { img = new URL(img, r.url).href; } catch { img = ""; } }
   const resumo = meta(html, ["og:description", "description", "twitter:description"]);
-  const ruim = /(icon|logo|avatar|favicon|sprite|default-og|placeholder)/i.test(img);
-  return { img: /^https?:/.test(img) && !ruim ? img : "", resumo };
+  return { img: /^https?:/.test(img) && !imagemRuim(img) ? img : "", resumo };
 }
 
 export async function enriquecer(dados, arquivoAnterior) {
@@ -79,6 +81,7 @@ export async function enriquecer(dados, arquivoAnterior) {
       feitos++;
     }
   }));
+  for (const n of dados.noticias) if (n.img && imagemRuim(n.img)) n.img = ""; // vale pro cache também
   const comImg = dados.noticias.filter((n) => n.img).length;
   console.log(`páginas lidas: ${feitos} · com imagem: ${comImg}/${dados.noticias.length}`);
 }
