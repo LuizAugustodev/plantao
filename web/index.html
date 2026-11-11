@@ -6,25 +6,29 @@
 <title>Plantão</title>
 <meta name="description" content="Jornal pessoal de tecnologia: dev, IA, segurança e lançamentos.">
 <meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131210" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://wsrv.nl">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root {
   --papel: #f5f1e8;
-  --papel-2: #ece6d9;
+  --cartao: #fffdf8;
+  --papel-2: #ebe5d8;
   --tinta: #1a1813;
-  --tinta-2: #5b564b;
+  --tinta-2: #57524a;
   --tinta-3: #8a8476;
-  --fio: #d8d0bf;
+  --fio: #dcd4c3;
   --acento: #c8371d;
   --acento-fundo: #f6dcd3;
   --ambar: #8a5a00;
   --ambar-fundo: #f3e3bf;
-  --lido: #9a9384;
+  --c-ia: #6a46d6; --c-seg: #c8371d; --c-dev: #1d68b0; --c-lanc: #2c7a4b; --c-br: #a8760a;
+  --sombra: 0 1px 2px rgb(40 30 10 / .06), 0 8px 24px -12px rgb(40 30 10 / .18);
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -32,46 +36,42 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --papel: #131210; --papel-2: #1c1a17; --tinta: #ece7dc; --tinta-2: #b0a999; --tinta-3: #7d776b;
-    --fio: #2e2b26; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f; --lido: #6c675d;
+    --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #7f796c;
+    --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f;
+    --c-ia: #a68bff; --c-seg: #ff6b4f; --c-dev: #5aa9f0; --c-lanc: #5cc98a; --c-br: #e9b23c;
+    --sombra: 0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --papel: #131210; --papel-2: #1c1a17; --tinta: #ece7dc; --tinta-2: #b0a999; --tinta-3: #7d776b;
-  --fio: #2e2b26; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f; --lido: #6c675d;
+  --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #7f796c;
+  --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f;
+  --c-ia: #a68bff; --c-seg: #ff6b4f; --c-dev: #5aa9f0; --c-lanc: #5cc98a; --c-br: #e9b23c;
+  --sombra: 0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0; background: var(--papel); color: var(--tinta);
-  font: 16px/1.5 var(--sans);
-  -webkit-font-smoothing: antialiased;
-}
-a { color: inherit; }
+body { margin: 0; background: var(--papel); color: var(--tinta); font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; }
-.folha { max-width: 760px; margin: 0 auto; padding: 0 16px 96px; }
+.folha { max-width: 1200px; margin: 0 auto; padding: 0 16px 96px; }
 
 /* Cabeçalho */
-.cabeca { padding: 28px 0 0; text-align: center; }
+.cabeca { padding: 22px 0 0; text-align: center; }
 .linha-topo {
   display: flex; justify-content: space-between; align-items: center; gap: 12px;
   font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-2);
   border-bottom: 1px solid var(--fio); padding-bottom: 10px;
 }
-.titulo-jornal {
-  font: 700 clamp(52px, 13vw, 92px)/.9 var(--serif); letter-spacing: -.035em;
-  margin: 18px 0 6px; font-optical-sizing: auto;
-}
-.titulo-jornal .ponto { color: var(--acento); }
-.lema { font: italic 400 17px/1.3 var(--serif); color: var(--tinta-2); margin: 0 0 18px; }
 .data-curta { display: none; }
+.titulo-jornal { font: 700 clamp(56px, 12vw, 104px)/.9 var(--serif); letter-spacing: -.035em; margin: 18px 0 6px; }
+.titulo-jornal .ponto { color: var(--acento); }
+.lema { font: italic 400 17px/1.3 var(--serif); color: var(--tinta-2); margin: 0 0 16px; }
 .atualizado { display: inline-flex; align-items: center; gap: 6px; }
-.pulso { width: 7px; height: 7px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 0 0 var(--acento); animation: pulso 2.4s infinite; }
+.pulso { width: 7px; height: 7px; border-radius: 50%; background: var(--acento); animation: pulso 2.4s infinite; }
 @keyframes pulso { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acento) 55%, transparent); } 70%,100% { box-shadow: 0 0 0 7px transparent; } }
-@media (prefers-reduced-motion: reduce) { .pulso { animation: none; } }
 .botao-tema {
   background: none; border: 1px solid var(--fio); border-radius: 99px; padding: 5px 10px; cursor: pointer;
   font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-2);
@@ -79,16 +79,12 @@ button { font: inherit; color: inherit; }
 .botao-tema:hover { color: var(--tinta); border-color: var(--tinta-3); }
 
 /* Abas */
-.barra {
-  position: sticky; top: 0; z-index: 5; background: var(--papel);
-  border-top: 3px double var(--tinta); border-bottom: 1px solid var(--fio);
-  margin: 0 -16px; padding: 0 16px;
-}
-.abas { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; margin: 0 -4px; }
+.barra { position: sticky; top: 0; z-index: 5; background: var(--papel); border-top: 3px double var(--tinta); border-bottom: 1px solid var(--fio); margin: 0 -16px; padding: 0 16px; }
+.abas { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; justify-content: safe center; }
 .abas::-webkit-scrollbar { display: none; }
 .aba {
-  flex: none; background: none; border: 0; cursor: pointer; padding: 13px 10px 11px;
-  font: 600 15px/1 var(--serif); color: var(--tinta-2); border-bottom: 2px solid transparent; margin-bottom: -1px;
+  flex: none; background: none; border: 0; cursor: pointer; padding: 13px 12px 11px;
+  font: 600 16px/1 var(--serif); color: var(--tinta-2); border-bottom: 2px solid transparent; margin-bottom: -1px;
   display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
 }
 .aba:hover { color: var(--tinta); }
@@ -96,87 +92,107 @@ button { font: inherit; color: inherit; }
 .aba .n { font: 500 10.5px/1 var(--mono); color: var(--acento); background: var(--acento-fundo); padding: 3px 5px; border-radius: 99px; }
 .aba .n:empty { display: none; }
 
-.ferramentas { display: flex; gap: 8px; align-items: center; padding: 12px 0 4px; flex-wrap: wrap; }
-.busca {
-  flex: 1 1 150px; min-width: 0; background: var(--papel-2); border: 1px solid transparent; border-radius: 8px;
-  padding: 9px 12px; font: 15px var(--sans); color: var(--tinta); outline: none;
-}
+.ferramentas { display: flex; gap: 8px; align-items: center; padding: 14px 0 0; flex-wrap: wrap; max-width: 720px; margin: 0 auto; }
+.busca { flex: 1 1 150px; min-width: 0; background: var(--papel-2); border: 1px solid transparent; border-radius: 8px; padding: 9px 12px; font: 15px var(--sans); color: var(--tinta); outline: none; }
 .busca:focus { border-color: var(--tinta-3); }
 .busca::placeholder { color: var(--tinta-3); }
-.chip {
-  background: none; border: 1px solid var(--fio); border-radius: 99px; padding: 7px 12px; cursor: pointer;
-  font: 500 12px/1 var(--mono); color: var(--tinta-2); white-space: nowrap;
-}
+.chip { background: none; border: 1px solid var(--fio); border-radius: 99px; padding: 7px 12px; cursor: pointer; font: 500 12px/1 var(--mono); color: var(--tinta-2); white-space: nowrap; }
 .chip[aria-pressed="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
-.chip:hover { border-color: var(--tinta-3); }
 
 /* Alerta da stack */
-.alerta { margin: 18px 0 4px; border: 1px solid var(--ambar); background: var(--ambar-fundo); border-radius: 10px; padding: 12px 14px; }
-.alerta h2 { margin: 0 0 6px; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ambar); }
-.alerta ul { margin: 0; padding: 0; list-style: none; }
-.alerta li { padding: 5px 0; font: 500 16px/1.35 var(--serif); }
-.alerta li + li { border-top: 1px dashed color-mix(in srgb, var(--ambar) 40%, transparent); }
-.alerta a { text-decoration: none; }
+.alerta { margin: 20px 0 0; border: 1px solid var(--ambar); background: var(--ambar-fundo); border-radius: 12px; padding: 14px 16px; }
+.alerta h2 { margin: 0 0 8px; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ambar); }
+.alerta ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px 28px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.alerta li { padding: 6px 0; font: 500 16.5px/1.35 var(--serif); }
 .alerta a:hover { text-decoration: underline; }
-.alerta .f { font: 11.5px var(--mono); color: var(--tinta-2); white-space: nowrap; }
+.alerta .f { display: block; font: 11.5px var(--mono); color: var(--tinta-2); margin-top: 2px; }
 
-/* Lista */
-.dia {
-  font: 600 11.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-2);
-  margin: 30px 0 4px; display: flex; align-items: center; gap: 10px;
+/* Cartões */
+.cat { --c: var(--tinta-2); }
+.cat-ia { --c: var(--c-ia); } .cat-seg { --c: var(--c-seg); } .cat-dev { --c: var(--c-dev); } .cat-lanc { --c: var(--c-lanc); } .cat-br { --c: var(--c-br); }
+
+.card {
+  position: relative; display: flex; flex-direction: column; background: var(--cartao); border-radius: 14px;
+  overflow: hidden; box-shadow: var(--sombra); transition: transform .25s ease, box-shadow .25s ease;
 }
-.dia::after { content: ""; flex: 1; height: 1px; background: var(--fio); }
-.lista { list-style: none; margin: 0; padding: 0; }
-.item {
-  display: grid; grid-template-columns: 48px 1fr; gap: 0 12px;
-  padding: 13px 0; border-bottom: 1px solid var(--fio);
-}
-.hora { font: 500 12px/1.9 var(--mono); color: var(--tinta-3); position: relative; }
-.item.novo .hora { color: var(--acento); }
-.item.novo .hora::after {
-  content: ""; position: absolute; left: 0; top: 26px; width: 6px; height: 6px; border-radius: 50%; background: var(--acento);
-}
-.item h3 { margin: 0; font: 500 19px/1.3 var(--serif); letter-spacing: -.005em; text-wrap: pretty; }
-.item h3 a { text-decoration: none; }
-.item h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.item h3 a:visited, .item.lido h3 { color: var(--lido); }
-.resumo { margin: 4px 0 0; color: var(--tinta-2); font-size: 14.5px; line-height: 1.45;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.item.lido .resumo { display: none; }
-.meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font: 12px/1.4 var(--mono); color: var(--tinta-3); }
-.meta .fonte { color: var(--tinta-2); font-weight: 500; }
-.meta a { color: var(--tinta-3); }
-.selo { font: 600 10.5px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; }
+.card:hover { transform: translateY(-2px); }
+.card .foto { aspect-ratio: 16 / 9; background: var(--papel-2); overflow: hidden; margin: 0; }
+.card .foto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.card:hover .foto img { transform: scale(1.04); }
+.card .corpo { padding: 16px 18px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.chapeu { display: flex; align-items: center; gap: 8px; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.chapeu .novo { color: var(--papel); background: var(--acento); padding: 3px 6px; border-radius: 4px; letter-spacing: .06em; }
+.card h3 { margin: 0; font: 600 21px/1.22 var(--serif); letter-spacing: -.01em; text-wrap: pretty; }
+.card h3 a::after { content: ""; position: absolute; inset: 0; } /* o cartão inteiro vira link */
+.card:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.linha-fina { margin: 0; color: var(--tinta-2); font: 400 15.5px/1.5 var(--serif); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.rodape-card { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; font: 12px/1.4 var(--mono); color: var(--tinta-3); }
+.rodape-card .fonte { color: var(--tinta-2); font-weight: 500; }
+.rodape-card a { position: relative; z-index: 1; color: var(--tinta-3); text-decoration: underline; text-underline-offset: 2px; }
+.selo { font: 600 10px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; }
 .selo.stack { background: var(--ambar-fundo); color: var(--ambar); }
 .selo.explorada, .selo.crítica { background: var(--acento-fundo); color: var(--acento); }
-.selo.alta { border: 1px solid var(--fio); color: var(--tinta-2); }
-.selo.lingua { border: 1px solid var(--fio); color: var(--tinta-3); }
+.selo.alta, .selo.lingua { border: 1px solid var(--fio); color: var(--tinta-2); }
 
-.vazio { text-align: center; color: var(--tinta-2); font: italic 18px var(--serif); padding: 60px 0; }
-.rodape { margin-top: 40px; font: 12px/1.6 var(--mono); color: var(--tinta-3); text-align: center; }
+/* Cartão sem foto: vira capa tipográfica com a cor da categoria */
+.card.texto { background: color-mix(in srgb, var(--c) 9%, var(--cartao)); border-top: 4px solid var(--c); }
+.card.texto h3 { font-size: 23px; }
+.card.texto .linha-fina { -webkit-line-clamp: 5; }
+
+.card.lido { opacity: .5; }
+.card.lido:hover { opacity: .85; }
+
+/* Capa: manchete grande + destaques */
+.capa { display: grid; gap: 20px; margin-top: 24px; }
+.manchete .corpo { padding: 20px 22px 22px; gap: 10px; }
+.manchete h3 { font-size: clamp(27px, 4.2vw, 42px); line-height: 1.08; letter-spacing: -.02em; }
+.manchete .linha-fina { font-size: 18px; -webkit-line-clamp: 4; }
+.destaques { display: grid; gap: 14px; align-content: start; }
+.mini { flex-direction: row; align-items: stretch; }
+.mini .foto { aspect-ratio: auto; width: 38%; flex: none; }
+.mini .corpo { padding: 12px 14px; gap: 6px; }
+.mini h3 { font-size: 17.5px; }
+.mini .linha-fina { display: none; }
+.mini.texto h3 { font-size: 18px; }
+
+/* Seções por dia */
+.dia { font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); margin: 40px 0 16px; display: flex; align-items: center; gap: 12px; }
+.dia::after { content: ""; flex: 1; height: 1px; background: var(--fio); }
+.grade { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+
+.vazio { text-align: center; color: var(--tinta-2); font: italic 20px var(--serif); padding: 70px 0; }
+.rodape { margin-top: 48px; font: 12px/1.6 var(--mono); color: var(--tinta-3); text-align: center; }
 .rodape button { background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; font: inherit; color: var(--tinta-2); }
 .rodape details { margin-top: 10px; }
 .rodape summary { cursor: pointer; }
-.rodape ul { list-style: none; padding: 0; margin: 8px 0 0; columns: 2; column-gap: 20px; text-align: left; }
+.rodape ul { list-style: none; padding: 0; margin: 8px auto 0; columns: 3 160px; column-gap: 20px; text-align: left; max-width: 640px; }
 .rodape .erro { color: var(--acento); }
 
 .aviso {
-  position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translate(-50%, 140%);
+  position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translate(-50%, 160%);
   background: var(--tinta); color: var(--papel); border: 0; border-radius: 99px; padding: 11px 18px; cursor: pointer;
   font: 500 13px/1 var(--mono); box-shadow: 0 6px 24px rgb(0 0 0 / .25); transition: transform .3s ease; z-index: 10;
 }
 .aviso.mostrar { transform: translate(-50%, 0); }
 
-@media (min-width: 720px) {
-  .cabeca { padding-top: 40px; }
-  .item { grid-template-columns: 58px 1fr; padding: 15px 0; }
-  .item h3 { font-size: 20.5px; }
+@media (min-width: 900px) {
+  .cabeca { padding-top: 36px; }
+  .capa { grid-template-columns: 1.65fr 1fr; gap: 24px; }
+  .grade { gap: 24px; }
 }
-@media (max-width: 420px) {
+@media (max-width: 520px) {
   .linha-topo .data-longa { display: none; }
   .linha-topo .data-curta { display: inline; }
-  .item { grid-template-columns: 40px 1fr; gap: 0 10px; }
-  .item h3 { font-size: 18px; }
+  .abas { justify-content: flex-start; }
+  .card h3 { font-size: 20px; }
+  .mini .foto { width: 34%; }
+  .mini h3 { font-size: 16.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulso { animation: none; }
+  .card, .card .foto img { transition: none; }
+  .card:hover { transform: none; }
+  .card:hover .foto img { transform: none; }
 }
 </style>
 </head>
@@ -192,7 +208,7 @@ button { font: inherit; color: inherit; }
     <p class="lema">Dev, IA, segurança e lançamentos — tudo num lugar só.</p>
   </header>
 
-  <nav class="barra" aria-label="Categorias">
+  <nav class="barra" aria-label="Editorias">
     <div class="abas" role="tablist" id="abas"></div>
   </nav>
 
@@ -249,14 +265,14 @@ const INICIAL = /*__DADOS__*/null;
     guardar.sset("plantao:base", String(base));
   }
   guardar.set("plantao:visita", agora);
-  let lidos = new Set(guardar.get("plantao:lidos", []));
+  const lidos = new Set(guardar.get("plantao:lidos", []));
 
   let dados = INICIAL;
   const estado = { cat: guardar.get("plantao:aba", "tudo"), busca: "", soNovas: false, soPT: guardar.get("plantao:pt", false) };
 
-  const fmtHora = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" });
   const fmtDia = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" });
   const fmtDataTopo = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const fmtCurta = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short" });
   const chaveDia = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 
   function relativo(ms) {
@@ -267,14 +283,14 @@ const INICIAL = /*__DADOS__*/null;
     return h < 24 ? `há ${h} h` : `há ${Math.round(h / 24)} d`;
   }
   function rotuloDia(d) {
-    const hoje = new Date(); const ontem = new Date(Date.now() - 864e5);
-    if (chaveDia(d) === chaveDia(hoje)) return "Hoje";
-    if (chaveDia(d) === chaveDia(ontem)) return "Ontem";
+    if (chaveDia(d) === chaveDia(new Date())) return "Hoje";
+    if (chaveDia(d) === chaveDia(new Date(Date.now() - 864e5))) return "Ontem";
     return fmtDia.format(d);
   }
   const ehNova = (n) => Date.parse(n.t) > base && !lidos.has(n.id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const semAcento = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const resumoBom = (n) => n.resumo && !/^(comments|article url)/i.test(n.resumo) ? n.resumo : "";
 
   function filtradas(cat) {
     const q = semAcento(estado.busca.trim());
@@ -285,6 +301,19 @@ const INICIAL = /*__DADOS__*/null;
       (!q || semAcento(`${n.titulo} ${n.resumo} ${n.fonte}`).includes(q)));
   }
 
+  // Nota pra escolher a manchete: novidade, "sua stack", pontos no HN e ter foto.
+  function nota(n) {
+    const idadeH = (Date.now() - Date.parse(n.t)) / 36e5;
+    let s = Math.max(0, 2.5 - idadeH / 8);
+    if (n.img) s += 2;
+    if (n.stack) s += 2;
+    if (n.extra?.pontos) s += Math.min(3, n.extra.pontos / 150);
+    if (ehNova(n)) s += .5;
+    if (n.cat === "br") s -= .6;
+    if (n.fid === "ghsa" || n.fid === "kev") s -= 1.5;
+    return s;
+  }
+
   function desenharAbas() {
     const cats = [["tudo", "Tudo"], ...Object.entries(dados.categorias)];
     $("#abas").innerHTML = cats.map(([id, nome]) => {
@@ -293,44 +322,67 @@ const INICIAL = /*__DADOS__*/null;
     }).join("");
   }
 
-  function itemHTML(n) {
-    const d = new Date(n.t);
+  // Foto reduzida e em WebP pelo wsrv.nl (grátis, código aberto); se falhar, volta pra original.
+  const miniatura = (url, tipo) =>
+    `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${tipo === "manchete" ? 1100 : tipo === "mini" ? 360 : 640}&h=${tipo === "manchete" ? 620 : tipo === "mini" ? 360 : 360}&fit=cover&a=attention&output=webp&q=78`;
+
+  function cardHTML(n, tipo = "") {
     const nova = ehNova(n);
-    const lido = lidos.has(n.id);
     const selos = [];
     if (n.stack) selos.push(`<span class="selo stack">sua stack</span>`);
     if (n.extra?.selo) selos.push(`<span class="selo ${esc(n.extra.selo)}">${esc(n.extra.selo)}</span>`);
     if (n.extra?.ransomware) selos.push(`<span class="selo explorada">ransomware</span>`);
     if (n.lingua === "pt") selos.push(`<span class="selo lingua">PT</span>`);
     const hn = n.extra?.discussao ? `<a href="${esc(n.extra.discussao)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${n.extra.pontos} pts · ${n.extra.comentarios} coment.</a>` : "";
-    const catNome = estado.cat === "tudo" ? `<span>${esc(dados.categorias[n.cat] ?? "")}</span>` : "";
-    return `<li class="item${nova ? " novo" : ""}${lido ? " lido" : ""}">
-      <time class="hora" datetime="${n.t}" title="${esc(d.toLocaleString("pt-BR"))}">${fmtHora.format(d)}</time>
-      <div>
+    const resumo = resumoBom(n);
+    const foto = n.img
+      ? `<figure class="foto"><img src="${esc(miniatura(n.img, tipo))}" data-orig="${esc(n.img)}" alt="" ${tipo === "manchete" ? 'fetchpriority="high"' : tipo === "mini" ? "" : 'loading="lazy"'} decoding="async" referrerpolicy="no-referrer"></figure>`
+      : "";
+    return `<article class="card cat cat-${esc(n.cat)} ${tipo}${n.img ? "" : " texto"}${lidos.has(n.id) ? " lido" : ""}">
+      ${foto}
+      <div class="corpo">
+        <div class="chapeu">${esc(dados.categorias[n.cat] ?? "")}${nova ? '<span class="novo">novo</span>' : ""}</div>
         <h3><a href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a></h3>
-        ${n.resumo && !/^(comments|article url)/i.test(n.resumo) ? `<p class="resumo">${esc(n.resumo)}</p>` : ""}
-        <div class="meta"><span class="fonte">${esc(n.fonte)}</span>${catNome}${selos.join("")}${hn}</div>
+        ${resumo ? `<p class="linha-fina">${esc(resumo)}</p>` : ""}
+        <div class="rodape-card"><span class="fonte">${esc(n.fonte)}</span><time datetime="${n.t}" title="${esc(new Date(n.t).toLocaleString("pt-BR"))}">${relativo(Date.parse(n.t))}</time>${selos.join("")}${hn}</div>
       </div>
-    </li>`;
+    </article>`;
   }
 
-  function desenharLista() {
-    const lista = filtradas(estado.cat);
+  function desenharConteudo() {
+    let lista = filtradas(estado.cat);
     if (!lista.length) {
       $("#conteudo").innerHTML = `<p class="vazio">${estado.soNovas ? "Nada novo por aqui. Bom sinal." : "Nenhuma notícia com esse filtro."}</p>`;
       return;
     }
-    let html = ""; let diaAtual = "";
+    let html = "";
+    // Capa: só sem busca e com notícias suficientes
+    if (!estado.busca && lista.length >= 6) {
+      const recentes = lista.filter((n) => Date.now() - Date.parse(n.t) < 36 * 36e5);
+      const ordenadas = [...(recentes.length >= 5 ? recentes : lista)].sort((a, b) => nota(b) - nota(a));
+      const manchete = ordenadas.find((n) => n.img) ?? ordenadas[0];
+      const destaques = [];
+      const fontesUsadas = new Set([manchete.fid]);
+      for (const n of ordenadas) {
+        if (destaques.length >= 4) break;
+        if (n === manchete || fontesUsadas.has(n.fid)) continue;
+        destaques.push(n); fontesUsadas.add(n.fid);
+      }
+      const naCapa = new Set([manchete, ...destaques]);
+      html += `<section class="capa" aria-label="Destaques"><div>${cardHTML(manchete, "manchete")}</div><div class="destaques">${destaques.map((n) => cardHTML(n, "mini")).join("")}</div></section>`;
+      lista = lista.filter((n) => !naCapa.has(n));
+    }
+    let diaAtual = "";
     for (const n of lista) {
       const d = new Date(n.t); const k = chaveDia(d);
       if (k !== diaAtual) {
-        if (diaAtual) html += "</ul>";
-        html += `<h2 class="dia">${rotuloDia(d)}</h2><ul class="lista">`;
+        if (diaAtual) html += "</div>";
+        html += `<h2 class="dia">${rotuloDia(d)}</h2><div class="grade">`;
         diaAtual = k;
       }
-      html += itemHTML(n);
+      html += cardHTML(n);
     }
-    $("#conteudo").innerHTML = html + "</ul>";
+    $("#conteudo").innerHTML = html + (diaAtual ? "</div>" : "");
   }
 
   function desenharAlerta() {
@@ -339,12 +391,11 @@ const INICIAL = /*__DADOS__*/null;
     const mostrar = itens.length && (estado.cat === "tudo" || estado.cat === "seg") && !estado.busca;
     $("#alerta").hidden = !mostrar;
     if (mostrar) $("#alerta-lista").innerHTML = itens.map((n) =>
-      `<li><a href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a> <span class="f">${esc(n.fonte)} · ${relativo(Date.parse(n.t))}</span></li>`).join("");
+      `<li><a href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a><span class="f">${esc(n.fonte)} · ${relativo(Date.parse(n.t))}</span></li>`).join("");
   }
 
   function desenharTopo() {
-    const d = fmtDataTopo.format(new Date());
-    $("#data").innerHTML = `<span class="data-longa">${d}</span><span class="data-curta">${new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short" }).format(new Date())}</span>`;
+    $("#data").innerHTML = `<span class="data-longa">${fmtDataTopo.format(new Date())}</span><span class="data-curta">${fmtCurta.format(new Date())}</span>`;
     $("#atualizado").textContent = `atualizado ${relativo(Date.parse(dados.geradoEm))}`;
     const novas = dados.noticias.filter(ehNova).length;
     $("#contagem").textContent = `${dados.noticias.length} notícias · ${novas} novas`;
@@ -353,10 +404,20 @@ const INICIAL = /*__DADOS__*/null;
   }
 
   function desenhar() {
-    desenharTopo(); desenharAbas(); desenharAlerta(); desenharLista();
+    desenharTopo(); desenharAbas(); desenharAlerta(); desenharConteudo();
     $("#so-novas").setAttribute("aria-pressed", estado.soNovas);
     $("#lingua").setAttribute("aria-pressed", estado.soPT);
   }
+
+  // Foto que não carrega: o cartão vira capa tipográfica.
+  document.addEventListener("error", (e) => {
+    const img = e.target;
+    if (img.tagName !== "IMG") return;
+    if (img.dataset.orig && img.src !== img.dataset.orig) { img.src = img.dataset.orig; return; }
+    const card = img.closest(".card");
+    img.closest(".foto")?.remove();
+    card?.classList.add("texto");
+  }, true);
 
   // Eventos
   $("#abas").addEventListener("click", (e) => {
@@ -365,7 +426,7 @@ const INICIAL = /*__DADOS__*/null;
     desenhar(); window.scrollTo({ top: Math.min(window.scrollY, $(".barra").offsetTop) });
   });
   let tBusca;
-  $("#busca").addEventListener("input", (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { estado.busca = e.target.value; desenharAlerta(); desenharLista(); }, 120); });
+  $("#busca").addEventListener("input", (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { estado.busca = e.target.value; desenharAlerta(); desenharConteudo(); }, 150); });
   $("#so-novas").addEventListener("click", () => { estado.soNovas = !estado.soNovas; desenhar(); });
   $("#lingua").addEventListener("click", () => { estado.soPT = !estado.soPT; guardar.set("plantao:pt", estado.soPT); desenhar(); });
   $("#marcar").addEventListener("click", () => {
@@ -375,12 +436,13 @@ const INICIAL = /*__DADOS__*/null;
     const a = e.target.closest("a[data-id]"); if (!a) return;
     lidos.add(a.dataset.id);
     guardar.set("plantao:lidos", [...lidos].slice(-800));
-    const li = a.closest(".item"); if (li) { li.classList.add("lido"); li.classList.remove("novo"); }
+    const card = a.closest(".card");
+    if (card) { card.classList.add("lido"); card.querySelector(".chapeu .novo")?.remove(); }
     desenharAbas();
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "/" && document.activeElement !== $("#busca")) { e.preventDefault(); $("#busca").focus(); }
-    if (e.key === "Escape" && document.activeElement === $("#busca")) { $("#busca").value = ""; estado.busca = ""; $("#busca").blur(); desenharAlerta(); desenharLista(); }
+    if (e.key === "Escape" && document.activeElement === $("#busca")) { $("#busca").value = ""; estado.busca = ""; $("#busca").blur(); desenharAlerta(); desenharConteudo(); }
   });
 
   // Busca notícias novas a cada 5 min com a aba aberta e ao voltar pra ela.
@@ -398,12 +460,11 @@ const INICIAL = /*__DADOS__*/null;
       dados = novo;
       if (chegaram && window.scrollY > 300) {
         const av = $("#aviso"); av.textContent = `↑ ${chegaram} ${chegaram === 1 ? "notícia nova" : "notícias novas"}`; av.classList.add("mostrar");
-      }
-      desenhar();
+        desenharTopo(); desenharAbas(); // não mexe nos cartões enquanto lê
+      } else desenhar();
     } catch {}
   }
-  $("#aviso").addEventListener("click", () => { $("#aviso").classList.remove("mostrar"); window.scrollTo({ top: 0, behavior: "smooth" }); });
-  window.addEventListener("scroll", () => { if (window.scrollY < 100) $("#aviso").classList.remove("mostrar"); }, { passive: true });
+  $("#aviso").addEventListener("click", () => { $("#aviso").classList.remove("mostrar"); desenhar(); window.scrollTo({ top: 0, behavior: "smooth" }); });
   setInterval(() => { if (document.visibilityState === "visible") atualizar(); }, 5 * 6e4);
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - ultimaBusca > 6e4) atualizar(); });
   setInterval(desenharTopo, 6e4);

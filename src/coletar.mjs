@@ -37,7 +37,7 @@ const decodificar = (s) =>
     if (e[0] === "#") return String.fromCodePoint(e[1] === "x" || e[1] === "X" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10));
     return ENT[e] ?? ENT[e.toLowerCase()] ?? m;
   });
-function limpar(html, max = 220) {
+function limpar(html, max = 360) {
   // decodifica antes e depois de tirar as tags: alguns feeds mandam o HTML codificado duas vezes
   let s = decodificar(texto(html))
     .replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, " ")
@@ -57,6 +57,24 @@ function linkAtom(link) {
   return alt["@_href"] ?? texto(alt);
 }
 
+// Imagem do item: media:content, media:thumbnail, enclosure ou o primeiro <img> do conteúdo.
+function imagemDoItem(i) {
+  const lista = (v) => (v == null ? [] : [].concat(v));
+  const candidatos = [
+    ...lista(i["media:content"]).filter((m) => !m["@_medium"] || m["@_medium"] === "image" || /^image\//.test(m["@_type"] ?? "") || /\.(jpe?g|png|webp|gif|avif)/i.test(m["@_url"] ?? "")).map((m) => m["@_url"]),
+    ...lista(i["media:group"]).flatMap((g) => lista(g["media:content"]).map((m) => m["@_url"])),
+    ...lista(i["media:thumbnail"]).map((m) => m["@_url"]),
+    ...lista(i.enclosure).filter((e) => /^image\//.test(e["@_type"] ?? "")).map((e) => e["@_url"]),
+    ...lista(i.link).filter((l) => typeof l === "object" && l["@_rel"] === "enclosure" && /^image\//.test(l["@_type"] ?? "")).map((l) => l["@_href"]),
+  ];
+  for (const campo of [i["content:encoded"], i.content, i.description, i.summary]) {
+    const m = decodificar(texto(campo)).match(/<img[^>]+src=["']([^"']+)["']/i);
+    if (m) candidatos.push(m[1]);
+  }
+  const url = candidatos.find((u) => typeof u === "string" && /^https?:\/\//.test(u) && !/(pixel|feedburner|gravatar|emoji|1x1|spacer|badge|icon|logo|avatar|favicon|sprite)/i.test(u));
+  return url ? decodificar(url) : "";
+}
+
 function lerFeed(xml) {
   const d = parser.parse(xml);
   if (d.rss?.channel) {
@@ -66,6 +84,7 @@ function lerFeed(xml) {
       url: texto(i.link) || texto(i.guid),
       data: texto(i.pubDate) || texto(i["dc:date"]),
       resumo: limpar(i.description ?? i["content:encoded"]),
+      img: imagemDoItem(i),
     }));
   }
   if (d.feed) {
@@ -75,6 +94,7 @@ function lerFeed(xml) {
       url: linkAtom(i.link),
       data: texto(i.published) || texto(i.updated),
       resumo: limpar(i.summary ?? i.content),
+      img: imagemDoItem(i),
     }));
   }
   const rdf = d["rdf:RDF"];
@@ -84,6 +104,7 @@ function lerFeed(xml) {
       url: texto(i.link),
       data: texto(i["dc:date"]),
       resumo: limpar(i.description),
+      img: imagemDoItem(i),
     }));
   }
   throw new Error("formato de feed desconhecido");
@@ -179,6 +200,7 @@ export async function coletar() {
         titulo: it.titulo,
         url: it.url,
         resumo: it.resumo || "",
+        img: it.img || "",
         fonte: f.nome,
         fid: f.id,
         cat,

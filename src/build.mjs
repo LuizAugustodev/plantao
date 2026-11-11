@@ -1,12 +1,15 @@
 // Gera dist/index.html (com as notícias embutidas) e dist/noticias.json.
 import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
 import { coletar } from "./coletar.mjs";
+import { enriquecer } from "./enriquecer.mjs";
+import { fileURLToPath } from "node:url";
 import { CATEGORIAS } from "./fontes.mjs";
 
 const raiz = new URL("..", import.meta.url);
 const dist = new URL("dist/", raiz);
 
 const dados = await coletar();
+await enriquecer(dados, fileURLToPath(new URL("noticias.json", dist)));
 dados.categorias = CATEGORIAS;
 
 await mkdir(dist, { recursive: true });
