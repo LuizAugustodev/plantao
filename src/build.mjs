@@ -19,7 +19,7 @@ const modelo = await readFile(new URL("web/index.html", raiz), "utf8");
 const html = modelo.replace("/*__DADOS__*/null", json.replace(/</g, "\\u003c"));
 await writeFile(new URL("index.html", dist), html);
 await writeFile(new URL("noticias.json", dist), json);
-for (const f of ["favicon.svg", "_headers"]) await copyFile(new URL(`web/${f}`, raiz), new URL(f, dist));
+for (const f of ["favicon.svg", "_headers", "og-image.png"]) await copyFile(new URL(`web/${f}`, raiz), new URL(f, dist));
 
 const falhas = dados.fontes.filter((f) => !f.ok);
 console.log(`${dados.noticias.length} notícias de ${dados.fontes.length - falhas.length}/${dados.fontes.length} fontes`);
