@@ -368,6 +368,11 @@ const INICIAL = /*__DADOS__*/null;
         if (n === manchete || fontesUsadas.has(n.fid)) continue;
         destaques.push(n); fontesUsadas.add(n.fid);
       }
+      // poucas fontes na aba: completa até 4, mesmo repetindo fonte
+      for (const n of ordenadas) {
+        if (destaques.length >= 4) break;
+        if (n !== manchete && !destaques.includes(n)) destaques.push(n);
+      }
       const naCapa = new Set([manchete, ...destaques]);
       html += `<section class="capa" aria-label="Destaques"><div>${cardHTML(manchete, "manchete")}</div><div class="destaques">${destaques.map((n) => cardHTML(n, "mini")).join("")}</div></section>`;
       lista = lista.filter((n) => !naCapa.has(n));

@@ -13,7 +13,7 @@ export const CATEGORIAS = {
 
 export const FONTES = [
   // Geral dev
-  { id: "hn", nome: "Hacker News", tipo: "hn", cat: "dev", lingua: "en", max: 30 },
+  { id: "hn", nome: "Hacker News", tipo: "hn", cat: "dev", lingua: "en", max: 25, soTema: true }, // soTema: só entra se o título for de tecnologia
   { id: "lobsters", nome: "Lobsters", tipo: "feed", url: "https://lobste.rs/rss", cat: "dev", lingua: "en", max: 15 },
   { id: "github-blog", nome: "GitHub Blog", tipo: "feed", url: "https://github.blog/feed/", cat: "dev", lingua: "en", max: 10 },
   { id: "cloudflare", nome: "Cloudflare Blog", tipo: "feed", url: "https://blog.cloudflare.com/rss/", cat: "dev", lingua: "en", max: 8 },
@@ -49,7 +49,10 @@ export const FONTES = [
 
 // Palavras que puxam a notícia pra outra categoria.
 export const PALAVRAS_SEG = /\b(cve-\d|vulnerab|exploit|ransomware|malware|zero-day|0-day|breach|leak|vazament|vazou|falha (de|crítica)|ataque hacker|phishing|backdoor|patch tuesday|supply.chain)/i;
-export const PALAVRAS_IA = /\b(ia|ai|llm|gpt|claude|gemini|openai|anthropic|chatgpt|copilot|deepseek|mistral|llama|agente de ia|inteligência artificial|machine learning|transformer)\b/i;
+export const PALAVRAS_IA = /\b(ia|ai|llms?|gpt|claude|gemini|openai|anthropic|chatgpt|copilot|deepseek|mistral|llama|agente de ia|inteligência artificial|machine learning|transformer)\b/i;
 
 // A stack do Luiz: notícia de segurança que cita isso ganha o selo "sua stack".
 export const MINHA_STACK = /\b(php|wordpress|laravel|composer|npm|node\.?js|react|vite|next\.?js|python|pip|pypi|fastapi|django|postgres(ql)?|supabase|godot|cloudflare|github actions)\b/i;
+
+// Fontes gerais (soTema) só aproveitam o que bate com segurança, IA ou isto aqui.
+export const PALAVRAS_DEV = /(\b(code|coding|coder|programm\w*|developer\w*|software|open[ -]?source|github|gitlab|git|linux|kernel|unix|\w*bsd|compil\w+|rust|python|javascript|typescript|node(js)?|deno|bun|golang|java|kotlin|swift|zig|haskell|elixir|erlang|ruby|php|ocaml|lisp|clojure|scala|sql|postgres\w*|sqlite|mysql|database\w*|api|apis|framework\w*|librar\w+|cli|terminal|shell|bash|vim|neovim|emacs|editor|ide|vs ?code|browser\w*|chrome|chromium|firefox|webkit|html|css|wasm|webassembly|http\w*|dns|tcp|udp|ipv[46]|server\w*|serverless|cloud|aws|azure|gcp|docker|kubernetes|k8s|devops|deploy\w*|algorithm\w*|data structures?|performance|latency|cach\w+|memory|cpu|gpu|cuda|llvm|frontend|backend|react|vue|svelte|nextjs|android|ios|macos|windows|apple|microsoft|google|mozilla|cloudflare|nvidia|amd|intel|arm|risc-?v|chip\w*|semiconductor\w*|show hn|ask hn|launch hn|hack\w*|driver\w*|glitch\w*|cryptograph\w*|encrypt\w*|protocol\w*|saas|tech|computer\w*|computing|robot\w*|engineer\w*|bug\w*|refactor\w*|regex|json|yaml|markdown|unicode|emulat\w+|virtual machine|vm|os|operating system|firmware|hardware|raspberry pi|arduino|fpga|quantum|startup\w*|app|apps|web|website\w*|internet|network\w*|router\w*|wi-?fi|bluetooth|usb|sdk|cpu\w*)\b|c\+\+|c#|\.net\b)/i;

@@ -1,6 +1,6 @@
 // Busca todas as fontes e devolve a lista de notícias normalizada.
 import { XMLParser } from "fast-xml-parser";
-import { FONTES, PALAVRAS_SEG, PALAVRAS_IA, MINHA_STACK } from "./fontes.mjs";
+import { FONTES, PALAVRAS_SEG, PALAVRAS_IA, PALAVRAS_DEV, MINHA_STACK } from "./fontes.mjs";
 
 const UA = "Plantao/1.0 (leitor pessoal de noticias; +https://github.com)";
 const DIAS = { lanc: 45, padrao: 5 }; // janela de notícias por categoria
@@ -165,8 +165,10 @@ async function coletarFonte(f) {
 function categorizar(f, n) {
   const alvo = `${n.titulo} ${n.resumo ?? ""}`;
   let cat = f.cat;
+  if (f.soTema && /\(YC [A-Z]?\d+\) is hiring/i.test(n.titulo)) return null; // anúncio de vaga
   if (cat === "dev" && PALAVRAS_SEG.test(alvo)) cat = "seg";
   else if (cat === "dev" && PALAVRAS_IA.test(n.titulo)) cat = "ia";
+  else if (f.soTema && !PALAVRAS_DEV.test(n.titulo)) return null; // fora do tema (carro, política, ciência geral…)
   return cat;
 }
 
@@ -191,8 +193,9 @@ export async function coletar() {
       try { it.url = new URL(it.url, f.url ?? undefined).href; } catch { continue; }
       const chave = it.url.replace(/[?#].*$/, "").replace(/\/$/, "");
       if (vistos.has(chave)) continue;
-      vistos.add(chave);
       const cat = categorizar(f, it);
+      if (!cat) continue;
+      vistos.add(chave);
       const stack = cat === "seg" && MINHA_STACK.test(`${it.titulo} ${it.resumo ?? ""}`);
       noticias.push({
         id: `${f.id}:${chave}`.slice(0, 200),
