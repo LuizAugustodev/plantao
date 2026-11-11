@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plantão</title>
+<meta name="description" content="Jornal pessoal de tecnologia: dev, IA, segurança e lançamentos.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131210" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --papel: #f5f1e8;
+  --papel-2: #ece6d9;
+  --tinta: #1a1813;
+  --tinta-2: #5b564b;
+  --tinta-3: #8a8476;
+  --fio: #d8d0bf;
+  --acento: #c8371d;
+  --acento-fundo: #f6dcd3;
+  --ambar: #8a5a00;
+  --ambar-fundo: #f3e3bf;
+  --lido: #9a9384;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel: #131210; --papel-2: #1c1a17; --tinta: #ece7dc; --tinta-2: #b0a999; --tinta-3: #7d776b;
+    --fio: #2e2b26; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f; --lido: #6c675d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papel: #131210; --papel-2: #1c1a17; --tinta: #ece7dc; --tinta-2: #b0a999; --tinta-3: #7d776b;
+  --fio: #2e2b26; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f; --lido: #6c675d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font: 16px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+.folha { max-width: 760px; margin: 0 auto; padding: 0 16px 96px; }
+
+/* Cabeçalho */
+.cabeca { padding: 28px 0 0; text-align: center; }
+.linha-topo {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-2);
+  border-bottom: 1px solid var(--fio); padding-bottom: 10px;
+}
+.titulo-jornal {
+  font: 700 clamp(52px, 13vw, 92px)/.9 var(--serif); letter-spacing: -.035em;
+  margin: 18px 0 6px; font-optical-sizing: auto;
+}
+.titulo-jornal .ponto { color: var(--acento); }
+.lema { font: italic 400 17px/1.3 var(--serif); color: var(--tinta-2); margin: 0 0 18px; }
+.data-curta { display: none; }
+.atualizado { display: inline-flex; align-items: center; gap: 6px; }
+.pulso { width: 7px; height: 7px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 0 0 var(--acento); animation: pulso 2.4s infinite; }
+@keyframes pulso { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--acento) 55%, transparent); } 70%,100% { box-shadow: 0 0 0 7px transparent; } }
+@media (prefers-reduced-motion: reduce) { .pulso { animation: none; } }
+.botao-tema {
+  background: none; border: 1px solid var(--fio); border-radius: 99px; padding: 5px 10px; cursor: pointer;
+  font: 500 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--tinta-2);
+}
+.botao-tema:hover { color: var(--tinta); border-color: var(--tinta-3); }
+
+/* Abas */
+.barra {
+  position: sticky; top: 0; z-index: 5; background: var(--papel);
+  border-top: 3px double var(--tinta); border-bottom: 1px solid var(--fio);
+  margin: 0 -16px; padding: 0 16px;
+}
+.abas { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; margin: 0 -4px; }
+.abas::-webkit-scrollbar { display: none; }
+.aba {
+  flex: none; background: none; border: 0; cursor: pointer; padding: 13px 10px 11px;
+  font: 600 15px/1 var(--serif); color: var(--tinta-2); border-bottom: 2px solid transparent; margin-bottom: -1px;
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+}
+.aba:hover { color: var(--tinta); }
+.aba[aria-selected="true"] { color: var(--tinta); border-bottom-color: var(--acento); }
+.aba .n { font: 500 10.5px/1 var(--mono); color: var(--acento); background: var(--acento-fundo); padding: 3px 5px; border-radius: 99px; }
+.aba .n:empty { display: none; }
+
+.ferramentas { display: flex; gap: 8px; align-items: center; padding: 12px 0 4px; flex-wrap: wrap; }
+.busca {
+  flex: 1 1 150px; min-width: 0; background: var(--papel-2); border: 1px solid transparent; border-radius: 8px;
+  padding: 9px 12px; font: 15px var(--sans); color: var(--tinta); outline: none;
+}
+.busca:focus { border-color: var(--tinta-3); }
+.busca::placeholder { color: var(--tinta-3); }
+.chip {
+  background: none; border: 1px solid var(--fio); border-radius: 99px; padding: 7px 12px; cursor: pointer;
+  font: 500 12px/1 var(--mono); color: var(--tinta-2); white-space: nowrap;
+}
+.chip[aria-pressed="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
+.chip:hover { border-color: var(--tinta-3); }
+
+/* Alerta da stack */
+.alerta { margin: 18px 0 4px; border: 1px solid var(--ambar); background: var(--ambar-fundo); border-radius: 10px; padding: 12px 14px; }
+.alerta h2 { margin: 0 0 6px; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ambar); }
+.alerta ul { margin: 0; padding: 0; list-style: none; }
+.alerta li { padding: 5px 0; font: 500 16px/1.35 var(--serif); }
+.alerta li + li { border-top: 1px dashed color-mix(in srgb, var(--ambar) 40%, transparent); }
+.alerta a { text-decoration: none; }
+.alerta a:hover { text-decoration: underline; }
+.alerta .f { font: 11.5px var(--mono); color: var(--tinta-2); white-space: nowrap; }
+
+/* Lista */
+.dia {
+  font: 600 11.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-2);
+  margin: 30px 0 4px; display: flex; align-items: center; gap: 10px;
+}
+.dia::after { content: ""; flex: 1; height: 1px; background: var(--fio); }
+.lista { list-style: none; margin: 0; padding: 0; }
+.item {
+  display: grid; grid-template-columns: 48px 1fr; gap: 0 12px;
+  padding: 13px 0; border-bottom: 1px solid var(--fio);
+}
+.hora { font: 500 12px/1.9 var(--mono); color: var(--tinta-3); position: relative; }
+.item.novo .hora { color: var(--acento); }
+.item.novo .hora::after {
+  content: ""; position: absolute; left: 0; top: 26px; width: 6px; height: 6px; border-radius: 50%; background: var(--acento);
+}
+.item h3 { margin: 0; font: 500 19px/1.3 var(--serif); letter-spacing: -.005em; text-wrap: pretty; }
+.item h3 a { text-decoration: none; }
+.item h3 a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.item h3 a:visited, .item.lido h3 { color: var(--lido); }
+.resumo { margin: 4px 0 0; color: var(--tinta-2); font-size: 14.5px; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.item.lido .resumo { display: none; }
+.meta { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: center; font: 12px/1.4 var(--mono); color: var(--tinta-3); }
+.meta .fonte { color: var(--tinta-2); font-weight: 500; }
+.meta a { color: var(--tinta-3); }
+.selo { font: 600 10.5px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; }
+.selo.stack { background: var(--ambar-fundo); color: var(--ambar); }
+.selo.explorada, .selo.crítica { background: var(--acento-fundo); color: var(--acento); }
+.selo.alta { border: 1px solid var(--fio); color: var(--tinta-2); }
+.selo.lingua { border: 1px solid var(--fio); color: var(--tinta-3); }
+
+.vazio { text-align: center; color: var(--tinta-2); font: italic 18px var(--serif); padding: 60px 0; }
+.rodape { margin-top: 40px; font: 12px/1.6 var(--mono); color: var(--tinta-3); text-align: center; }
+.rodape button { background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; font: inherit; color: var(--tinta-2); }
+.rodape details { margin-top: 10px; }
+.rodape summary { cursor: pointer; }
+.rodape ul { list-style: none; padding: 0; margin: 8px 0 0; columns: 2; column-gap: 20px; text-align: left; }
+.rodape .erro { color: var(--acento); }
+
+.aviso {
+  position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translate(-50%, 140%);
+  background: var(--tinta); color: var(--papel); border: 0; border-radius: 99px; padding: 11px 18px; cursor: pointer;
+  font: 500 13px/1 var(--mono); box-shadow: 0 6px 24px rgb(0 0 0 / .25); transition: transform .3s ease; z-index: 10;
+}
+.aviso.mostrar { transform: translate(-50%, 0); }
+
+@media (min-width: 720px) {
+  .cabeca { padding-top: 40px; }
+  .item { grid-template-columns: 58px 1fr; padding: 15px 0; }
+  .item h3 { font-size: 20.5px; }
+}
+@media (max-width: 420px) {
+  .linha-topo .data-longa { display: none; }
+  .linha-topo .data-curta { display: inline; }
+  .item { grid-template-columns: 40px 1fr; gap: 0 10px; }
+  .item h3 { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+<div class="folha">
+  <header class="cabeca">
+    <div class="linha-topo">
+      <span id="data">—</span>
+      <span class="atualizado"><span class="pulso" aria-hidden="true"></span><span id="atualizado">—</span></span>
+      <button class="botao-tema" id="tema" type="button" aria-label="Trocar tema">Tema</button>
+    </div>
+    <h1 class="titulo-jornal">Plantão<span class="ponto">.</span></h1>
+    <p class="lema">Dev, IA, segurança e lançamentos — tudo num lugar só.</p>
+  </header>
+
+  <nav class="barra" aria-label="Categorias">
+    <div class="abas" role="tablist" id="abas"></div>
+  </nav>
+
+  <div class="ferramentas">
+    <input class="busca" id="busca" type="search" placeholder="Buscar (tecla /)" autocomplete="off" aria-label="Buscar notícias">
+    <button class="chip" id="so-novas" type="button" aria-pressed="false">só novas</button>
+    <button class="chip" id="lingua" type="button" aria-pressed="false" title="Mostrar só notícias em português">só PT</button>
+  </div>
+
+  <section class="alerta" id="alerta" hidden>
+    <h2>Na sua stack · últimas 72 h</h2>
+    <ul id="alerta-lista"></ul>
+  </section>
+
+  <main id="conteudo"></main>
+
+  <footer class="rodape">
+    <p><button type="button" id="marcar">Marcar tudo como lido</button> · <span id="contagem"></span></p>
+    <details><summary>Fontes</summary><ul id="fontes"></ul></details>
+  </footer>
+</div>
+<button class="aviso" id="aviso" type="button"></button>
+
+<script>
+const INICIAL = /*__DADOS__*/null;
+(() => {
+  "use strict";
+  const $ = (s) => document.querySelector(s);
+  const guardar = {
+    get(k, padrao) { try { const v = localStorage.getItem(k); return v == null ? padrao : JSON.parse(v); } catch { return padrao; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+    sget(k) { try { return sessionStorage.getItem(k); } catch { return null; } },
+    sset(k, v) { try { sessionStorage.setItem(k, v); } catch {} },
+  };
+
+  // Tema
+  const raiz = document.documentElement;
+  const temaSalvo = guardar.get("plantao:tema", null);
+  if (temaSalvo) raiz.dataset.theme = temaSalvo;
+  const escuroAgora = () => raiz.dataset.theme ? raiz.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const rotuloTema = () => { $("#tema").textContent = escuroAgora() ? "☀ claro" : "☾ escuro"; };
+  $("#tema").addEventListener("click", () => {
+    raiz.dataset.theme = escuroAgora() ? "light" : "dark";
+    guardar.set("plantao:tema", raiz.dataset.theme);
+    rotuloTema();
+  });
+  rotuloTema();
+
+  // "Novo desde a última visita": a base da sessão fica fixa até fechar a aba ou marcar tudo como lido.
+  const agora = Date.now();
+  let base = Number(guardar.sget("plantao:base"));
+  if (!base) {
+    base = guardar.get("plantao:visita", agora - 24 * 36e5);
+    guardar.sset("plantao:base", String(base));
+  }
+  guardar.set("plantao:visita", agora);
+  let lidos = new Set(guardar.get("plantao:lidos", []));
+
+  let dados = INICIAL;
+  const estado = { cat: guardar.get("plantao:aba", "tudo"), busca: "", soNovas: false, soPT: guardar.get("plantao:pt", false) };
+
+  const fmtHora = new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit" });
+  const fmtDia = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+  const fmtDataTopo = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const chaveDia = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+
+  function relativo(ms) {
+    const min = Math.round((Date.now() - ms) / 6e4);
+    if (min < 1) return "agora";
+    if (min < 60) return `há ${min} min`;
+    const h = Math.round(min / 60);
+    return h < 24 ? `há ${h} h` : `há ${Math.round(h / 24)} d`;
+  }
+  function rotuloDia(d) {
+    const hoje = new Date(); const ontem = new Date(Date.now() - 864e5);
+    if (chaveDia(d) === chaveDia(hoje)) return "Hoje";
+    if (chaveDia(d) === chaveDia(ontem)) return "Ontem";
+    return fmtDia.format(d);
+  }
+  const ehNova = (n) => Date.parse(n.t) > base && !lidos.has(n.id);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const semAcento = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
+  function filtradas(cat) {
+    const q = semAcento(estado.busca.trim());
+    return dados.noticias.filter((n) =>
+      (cat === "tudo" || n.cat === cat) &&
+      (!estado.soPT || n.lingua === "pt") &&
+      (!estado.soNovas || ehNova(n)) &&
+      (!q || semAcento(`${n.titulo} ${n.resumo} ${n.fonte}`).includes(q)));
+  }
+
+  function desenharAbas() {
+    const cats = [["tudo", "Tudo"], ...Object.entries(dados.categorias)];
+    $("#abas").innerHTML = cats.map(([id, nome]) => {
+      const novas = dados.noticias.filter((n) => (id === "tudo" || n.cat === id) && ehNova(n) && (!estado.soPT || n.lingua === "pt")).length;
+      return `<button class="aba" role="tab" type="button" data-cat="${id}" aria-selected="${estado.cat === id}">${nome}<span class="n">${novas || ""}</span></button>`;
+    }).join("");
+  }
+
+  function itemHTML(n) {
+    const d = new Date(n.t);
+    const nova = ehNova(n);
+    const lido = lidos.has(n.id);
+    const selos = [];
+    if (n.stack) selos.push(`<span class="selo stack">sua stack</span>`);
+    if (n.extra?.selo) selos.push(`<span class="selo ${esc(n.extra.selo)}">${esc(n.extra.selo)}</span>`);
+    if (n.extra?.ransomware) selos.push(`<span class="selo explorada">ransomware</span>`);
+    if (n.lingua === "pt") selos.push(`<span class="selo lingua">PT</span>`);
+    const hn = n.extra?.discussao ? `<a href="${esc(n.extra.discussao)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${n.extra.pontos} pts · ${n.extra.comentarios} coment.</a>` : "";
+    const catNome = estado.cat === "tudo" ? `<span>${esc(dados.categorias[n.cat] ?? "")}</span>` : "";
+    return `<li class="item${nova ? " novo" : ""}${lido ? " lido" : ""}">
+      <time class="hora" datetime="${n.t}" title="${esc(d.toLocaleString("pt-BR"))}">${fmtHora.format(d)}</time>
+      <div>
+        <h3><a href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a></h3>
+        ${n.resumo && !/^(comments|article url)/i.test(n.resumo) ? `<p class="resumo">${esc(n.resumo)}</p>` : ""}
+        <div class="meta"><span class="fonte">${esc(n.fonte)}</span>${catNome}${selos.join("")}${hn}</div>
+      </div>
+    </li>`;
+  }
+
+  function desenharLista() {
+    const lista = filtradas(estado.cat);
+    if (!lista.length) {
+      $("#conteudo").innerHTML = `<p class="vazio">${estado.soNovas ? "Nada novo por aqui. Bom sinal." : "Nenhuma notícia com esse filtro."}</p>`;
+      return;
+    }
+    let html = ""; let diaAtual = "";
+    for (const n of lista) {
+      const d = new Date(n.t); const k = chaveDia(d);
+      if (k !== diaAtual) {
+        if (diaAtual) html += "</ul>";
+        html += `<h2 class="dia">${rotuloDia(d)}</h2><ul class="lista">`;
+        diaAtual = k;
+      }
+      html += itemHTML(n);
+    }
+    $("#conteudo").innerHTML = html + "</ul>";
+  }
+
+  function desenharAlerta() {
+    const limite = Date.now() - 72 * 36e5;
+    const itens = dados.noticias.filter((n) => n.stack && Date.parse(n.t) > limite).slice(0, 4);
+    const mostrar = itens.length && (estado.cat === "tudo" || estado.cat === "seg") && !estado.busca;
+    $("#alerta").hidden = !mostrar;
+    if (mostrar) $("#alerta-lista").innerHTML = itens.map((n) =>
+      `<li><a href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a> <span class="f">${esc(n.fonte)} · ${relativo(Date.parse(n.t))}</span></li>`).join("");
+  }
+
+  function desenharTopo() {
+    const d = fmtDataTopo.format(new Date());
+    $("#data").innerHTML = `<span class="data-longa">${d}</span><span class="data-curta">${new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short" }).format(new Date())}</span>`;
+    $("#atualizado").textContent = `atualizado ${relativo(Date.parse(dados.geradoEm))}`;
+    const novas = dados.noticias.filter(ehNova).length;
+    $("#contagem").textContent = `${dados.noticias.length} notícias · ${novas} novas`;
+    $("#fontes").innerHTML = dados.fontes.map((f) =>
+      `<li class="${f.ok ? "" : "erro"}">${esc(f.nome)} ${f.ok ? `(${f.itens})` : "· fora do ar"}</li>`).join("");
+  }
+
+  function desenhar() {
+    desenharTopo(); desenharAbas(); desenharAlerta(); desenharLista();
+    $("#so-novas").setAttribute("aria-pressed", estado.soNovas);
+    $("#lingua").setAttribute("aria-pressed", estado.soPT);
+  }
+
+  // Eventos
+  $("#abas").addEventListener("click", (e) => {
+    const b = e.target.closest(".aba"); if (!b) return;
+    estado.cat = b.dataset.cat; guardar.set("plantao:aba", estado.cat);
+    desenhar(); window.scrollTo({ top: Math.min(window.scrollY, $(".barra").offsetTop) });
+  });
+  let tBusca;
+  $("#busca").addEventListener("input", (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { estado.busca = e.target.value; desenharAlerta(); desenharLista(); }, 120); });
+  $("#so-novas").addEventListener("click", () => { estado.soNovas = !estado.soNovas; desenhar(); });
+  $("#lingua").addEventListener("click", () => { estado.soPT = !estado.soPT; guardar.set("plantao:pt", estado.soPT); desenhar(); });
+  $("#marcar").addEventListener("click", () => {
+    base = Date.now(); guardar.sset("plantao:base", String(base)); guardar.set("plantao:visita", base); desenhar();
+  });
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a[data-id]"); if (!a) return;
+    lidos.add(a.dataset.id);
+    guardar.set("plantao:lidos", [...lidos].slice(-800));
+    const li = a.closest(".item"); if (li) { li.classList.add("lido"); li.classList.remove("novo"); }
+    desenharAbas();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && document.activeElement !== $("#busca")) { e.preventDefault(); $("#busca").focus(); }
+    if (e.key === "Escape" && document.activeElement === $("#busca")) { $("#busca").value = ""; estado.busca = ""; $("#busca").blur(); desenharAlerta(); desenharLista(); }
+  });
+
+  // Busca notícias novas a cada 5 min com a aba aberta e ao voltar pra ela.
+  let ultimaBusca = Date.now();
+  async function atualizar() {
+    ultimaBusca = Date.now();
+    try {
+      const r = await fetch(`noticias.json?t=${Date.now()}`, { cache: "no-store" });
+      if (!r.ok) return;
+      const novo = await r.json();
+      if (novo.geradoEm <= dados.geradoEm) { desenharTopo(); return; }
+      const antes = new Set(dados.noticias.map((n) => n.id));
+      const chegaram = novo.noticias.filter((n) => !antes.has(n.id)).length;
+      novo.categorias = novo.categorias ?? dados.categorias;
+      dados = novo;
+      if (chegaram && window.scrollY > 300) {
+        const av = $("#aviso"); av.textContent = `↑ ${chegaram} ${chegaram === 1 ? "notícia nova" : "notícias novas"}`; av.classList.add("mostrar");
+      }
+      desenhar();
+    } catch {}
+  }
+  $("#aviso").addEventListener("click", () => { $("#aviso").classList.remove("mostrar"); window.scrollTo({ top: 0, behavior: "smooth" }); });
+  window.addEventListener("scroll", () => { if (window.scrollY < 100) $("#aviso").classList.remove("mostrar"); }, { passive: true });
+  setInterval(() => { if (document.visibilityState === "visible") atualizar(); }, 5 * 6e4);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - ultimaBusca > 6e4) atualizar(); });
+  setInterval(desenharTopo, 6e4);
+
+  if (!dados) { $("#conteudo").innerHTML = `<p class="vazio">Sem dados ainda.</p>`; return; }
+  desenhar();
+})();
+</script>
+</body>
+</html>

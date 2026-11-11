@@ -1,0 +1,20 @@
+{
+  "name": "plantao",
+  "version": "1.0.0",
+  "description": "Plantão: jornal pessoal de tecnologia",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "serve": "node src/servir.mjs",
+    "dev": "node src/build.mjs && node src/servir.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "fast-xml-parser": "^5.12.0"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

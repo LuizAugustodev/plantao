@@ -1,0 +1,9 @@
+/
+  Cache-Control: public, max-age=60
+/index.html
+  Cache-Control: public, max-age=60
+/noticias.json
+  Cache-Control: public, max-age=60
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
