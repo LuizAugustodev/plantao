@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Plantão</title>
 <meta name="description" content="Jornal pessoal de tecnologia: dev, IA, segurança e lançamentos.">
-<meta name="robots" content="noindex">
 <link rel="canonical" href="https://luizaugustodev.github.io/plantao/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Plantão">
 <meta property="og:title" content="Plantão: jornal de tecnologia que se atualiza sozinho">
-<meta property="og:description" content="Dev, IA, segurança, lançamentos e fontes do Brasil num jornal só, atualizado a cada 15 minutos.">
+<meta property="og:description" content="Dev, IA, segurança, lançamentos e fontes do Brasil num jornal só, atualizado várias vezes por dia.">
 <meta property="og:url" content="https://luizaugustodev.github.io/plantao/">
 <meta property="og:image" content="https://luizaugustodev.github.io/plantao/og-image.png">
 <meta property="og:image:secure_url" content="https://luizaugustodev.github.io/plantao/og-image.png">
@@ -21,7 +20,7 @@
 <meta property="og:image:alt" content="Plantão: jornal de tecnologia que se atualiza sozinho">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Plantão: jornal de tecnologia que se atualiza sozinho">
-<meta name="twitter:description" content="Dev, IA, segurança, lançamentos e fontes do Brasil num jornal só, atualizado a cada 15 minutos.">
+<meta name="twitter:description" content="Dev, IA, segurança, lançamentos e fontes do Brasil num jornal só, atualizado várias vezes por dia.">
 <meta name="twitter:image" content="https://luizaugustodev.github.io/plantao/og-image.png">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
@@ -38,13 +37,13 @@
   --papel-2: #ebe5d8;
   --tinta: #1a1813;
   --tinta-2: #57524a;
-  --tinta-3: #8a8476;
+  --tinta-3: #6a6457;
   --fio: #dcd4c3;
   --acento: #c8371d;
   --acento-fundo: #f6dcd3;
   --ambar: #8a5a00;
   --ambar-fundo: #f3e3bf;
-  --c-ia: #6a46d6; --c-seg: #c8371d; --c-dev: #1d68b0; --c-lanc: #2c7a4b; --c-br: #a8760a;
+  --c-ia: #6a46d6; --c-seg: #c8371d; --c-dev: #1d68b0; --c-lanc: #2c7a4b; --c-br: #8f6406;
   --sombra: 0 1px 2px rgb(40 30 10 / .06), 0 8px 24px -12px rgb(40 30 10 / .18);
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -54,7 +53,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #7f796c;
+    --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #948d7f;
     --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f;
     --c-ia: #a68bff; --c-seg: #ff6b4f; --c-dev: #5aa9f0; --c-lanc: #5cc98a; --c-br: #e9b23c;
     --sombra: 0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
@@ -62,7 +61,7 @@
   }
 }
 :root[data-theme="dark"] {
-  --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #7f796c;
+  --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #948d7f;
   --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f;
   --c-ia: #a68bff; --c-seg: #ff6b4f; --c-dev: #5aa9f0; --c-lanc: #5cc98a; --c-br: #e9b23c;
   --sombra: 0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
@@ -80,6 +79,7 @@ button { font: inherit; color: inherit; }
 .topo { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--papel) 92%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--fio); }
 .topo-in { max-width: 1720px; margin: 0 auto; padding: 0 var(--margem); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px 24px; min-height: 60px; }
 .marca { display: flex; flex-direction: column; gap: 3px; padding: 8px 0; }
+.marca h1 { margin: 0; font: inherit; }
 .logo { font: 700 28px/1 var(--serif); letter-spacing: -.03em; white-space: nowrap; }
 .logo .ponto { color: var(--acento); }
 .status { display: flex; align-items: center; gap: 6px; font: 500 10.5px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--tinta-3); white-space: nowrap; }
@@ -94,13 +94,18 @@ button { font: inherit; color: inherit; }
   display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
 }
 .aba:hover { color: var(--tinta); }
-.aba[aria-selected="true"] { color: var(--tinta); border-bottom-color: var(--acento); }
+.aba[aria-pressed="true"] { color: var(--tinta); border-bottom-color: var(--acento); }
 .aba .n { font: 500 10.5px/1 var(--mono); color: var(--acento); background: var(--acento-fundo); padding: 3px 5px; border-radius: 99px; }
 .aba .n:empty { display: none; }
 
 .acoes, .filtros { display: flex; align-items: center; gap: 8px; }
-.busca { width: 220px; min-width: 0; background: var(--papel-2); border: 1px solid transparent; border-radius: 8px; padding: 8px 12px; font: 14.5px var(--sans); color: var(--tinta); outline: none; }
+.busca { width: 220px; min-width: 0; background: var(--papel-2); border: 1px solid transparent; border-radius: 8px; padding: 8px 12px; font: 14.5px var(--sans); color: var(--tinta); }
 .busca:focus { border-color: var(--tinta-3); }
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; border-radius: 6px; }
+.busca:focus-visible { outline-offset: 0; border-radius: 8px; }
+.card:has(h3 a:focus-visible) { outline: 2px solid var(--acento); outline-offset: 3px; }
+.card h3 a:focus-visible { outline: 0; }
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .busca::placeholder { color: var(--tinta-3); }
 .chip, .icone { background: none; border: 1px solid var(--fio); border-radius: 99px; padding: 7px 11px; cursor: pointer; font: 500 12px/1 var(--mono); color: var(--tinta-2); white-space: nowrap; }
 .chip[aria-pressed="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
@@ -181,16 +186,32 @@ button { font: inherit; color: inherit; }
 .dia::after { content: ""; flex: 1; height: 1px; background: var(--fio); }
 .grade { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); }
 
-.vazio { text-align: center; color: var(--tinta-2); font: italic 20px var(--serif); padding: 70px 0; }
-.rodape { margin-top: 48px; font: 12px/1.6 var(--mono); color: var(--tinta-3); text-align: center; }
-.rodape button { background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; font: inherit; color: var(--tinta-2); }
-.rodape details { margin-top: 10px; }
-.rodape summary { cursor: pointer; }
-.rodape ul { list-style: none; padding: 0; margin: 8px auto 0; columns: 3 160px; column-gap: 20px; text-align: left; max-width: 640px; }
-.rodape .erro { color: var(--acento); }
+.vazio { text-align: center; padding: 70px 0 40px; }
+.vazio p { margin: 0 0 6px; color: var(--tinta-2); font: italic 22px var(--serif); }
+.vazio small { font: 12px var(--mono); color: var(--tinta-3); }
+.vazio .saidas { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.vazio .chip { background: var(--cartao); }
+.vazio .chip.principal { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
 
-.aviso { position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translate(-50%, 160%); background: var(--tinta); color: var(--papel); border: 0; border-radius: 99px; padding: 11px 18px; cursor: pointer; font: 500 13px/1 var(--mono); box-shadow: 0 6px 24px rgb(0 0 0 / .25); transition: transform .3s ease; z-index: 10; }
-.aviso.mostrar { transform: translate(-50%, 0); }
+.rodape { margin-top: 56px; }
+.rodape .util { margin: 0 0 20px; text-align: center; font: 12px/1.6 var(--mono); color: var(--tinta-3); }
+.rodape .util button { background: none; border: 0; padding: 0; text-decoration: underline; cursor: pointer; font: inherit; color: var(--tinta-2); }
+.colofao { border-top: 2px solid var(--tinta); padding-top: 26px; display: grid; gap: 28px 40px; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); }
+.colofao .logo { display: inline-block; font-size: 34px; margin-bottom: 10px; }
+.colofao p { margin: 0; font: 16px/1.55 var(--serif); color: var(--tinta-2); max-width: 46ch; }
+.colofao p a, .colofao li a { color: var(--tinta); text-decoration: underline; text-decoration-color: var(--fio); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.colofao p a:hover, .colofao li a:hover { text-decoration-color: var(--acento); }
+.colofao h2 { margin: 0 0 12px; font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); }
+.colofao ol { margin: 0; padding: 0; list-style: none; counter-reset: passo; font: 13px/1.5 var(--mono); color: var(--tinta-2); }
+.colofao ol li { counter-increment: passo; display: grid; grid-template-columns: 22px 1fr; padding: 3px 0; }
+.colofao ol li::before { content: counter(passo); color: var(--acento); font-weight: 600; }
+.colofao .rodada { margin-top: 10px; font: 12px/1.5 var(--mono); color: var(--tinta-3); }
+.colofao summary { cursor: pointer; font: 13px/1.5 var(--mono); color: var(--tinta-2); }
+.colofao details ul { list-style: none; padding: 0; margin: 10px 0 0; columns: 2 140px; column-gap: 16px; font: 12px/1.7 var(--mono); color: var(--tinta-3); }
+.colofao .erro { color: var(--acento); }
+
+.aviso { position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); transform: translate(-50%, calc(100% + 40px)); visibility: hidden; background: var(--tinta); color: var(--papel); border: 0; border-radius: 99px; padding: 11px 18px; cursor: pointer; font: 500 13px/1 var(--mono); box-shadow: 0 6px 24px rgb(0 0 0 / .25); transition: transform .3s ease, visibility 0s linear .3s; z-index: 10; }
+.aviso.mostrar { transform: translate(-50%, 0); visibility: visible; transition: transform .3s ease; }
 
 /* Telas largas: capa em 3 colunas */
 @media (min-width: 1280px) {
@@ -224,12 +245,15 @@ button { font: inherit; color: inherit; }
   .alerta li:nth-child(n+3) { display: none; }
   .ultimas { display: none; }
   .capa { gap: 16px; margin-top: 16px; }
+  .colofao { grid-template-columns: 1fr 1fr; }
+  .colofao > :first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 520px) {
   .status .data { display: none; }
   .card h3 { font-size: 20px; }
   .mini .foto { width: 34%; }
   .mini h3 { font-size: 16.5px; }
+  .colofao { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   .pulso { animation: none; }
@@ -242,10 +266,10 @@ button { font: inherit; color: inherit; }
 <header class="topo" id="topo">
   <div class="topo-in">
     <div class="marca">
-      <a class="logo" href="./" aria-label="Plantão, início">Plantão<span class="ponto">.</span></a>
+      <h1><a class="logo" href="./" aria-label="Plantão, início">Plantão<span class="ponto">.</span></a></h1>
       <span class="status"><span class="pulso" aria-hidden="true"></span><span class="data" id="data"></span><span id="atualizado">—</span></span>
     </div>
-    <nav class="abas" role="tablist" id="abas" aria-label="Editorias"></nav>
+    <nav class="abas" id="abas" aria-label="Editorias"></nav>
     <div class="acoes">
       <div class="filtros">
         <input class="busca" id="busca" type="search" placeholder="Buscar (tecla /)" autocomplete="off" aria-label="Buscar notícias">
@@ -261,8 +285,26 @@ button { font: inherit; color: inherit; }
 <div class="folha">
   <main id="conteudo"></main>
   <footer class="rodape">
-    <p><button type="button" id="marcar">Marcar tudo como lido</button> · <span id="contagem"></span></p>
-    <details><summary>Fontes</summary><ul id="fontes"></ul></details>
+    <p class="util"><button type="button" id="marcar">Marcar tudo como lido</button> · <span id="contagem"></span></p>
+    <div class="colofao">
+      <div>
+        <a class="logo" href="./">Plantão<span class="ponto">.</span></a>
+        <p>Jornal de tecnologia que se monta sozinho. Projeto pessoal de <a href="https://github.com/LuizAugustodev" rel="noopener">Luiz Augusto</a>, dev full stack em Cuiabá. <a href="https://github.com/LuizAugustodev/plantao" rel="noopener">Código aberto no GitHub</a>. Também faço sites na <a href="https://ziul.com.br" rel="noopener">Ziul</a>.</p>
+      </div>
+      <div>
+        <h2>Como funciona</h2>
+        <ol>
+          <li><span>O GitHub Actions coleta <span id="n-fontes">as</span> fontes: RSS, Hacker News, CISA e GitHub</span></li>
+          <li><span>Classifica por editoria e marca o que é da minha stack</span></li>
+          <li><span>Publica uma página estática no GitHub Pages, sem servidor</span></li>
+        </ol>
+        <p class="rodada" id="rodada"></p>
+      </div>
+      <div>
+        <h2>Fontes</h2>
+        <details><summary>Ver a lista</summary><ul id="fontes"></ul></details>
+      </div>
+    </div>
   </footer>
 </div>
 <button class="aviso" id="aviso" type="button"></button>
@@ -329,6 +371,19 @@ const INICIAL = /*__DADOS__*/null;
   const semAcento = (s) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   const resumoBom = (n) => n.resumo && !/^(comments|article url)/i.test(n.resumo) ? n.resumo : "";
 
+  // Mesma notícia vinda de fontes diferentes: 3+ palavras em comum e 40%+ do título mais curto.
+  const PARADAS = new Set("the and for with from that this into over about after more its has have are was not you your how why what new com para uma uns das dos que por nos nas mais como sem sobre apos".split(" "));
+  const palavras = (t) => new Set(semAcento(t).split(/[^a-z0-9]+/).filter((w) => w.length >= 3 && !PARADAS.has(w)));
+  const cacheP = new Map();
+  const pal = (n) => { if (!cacheP.has(n.id)) cacheP.set(n.id, palavras(n.titulo)); return cacheP.get(n.id); };
+  function parecidas(a, b) {
+    if (a === b || a.id === b.id) return true;
+    const pa = pal(a), pb = pal(b);
+    let comum = 0; for (const w of pa) if (pb.has(w)) comum++;
+    return comum >= 3 && comum / Math.min(pa.size, pb.size) >= .4;
+  }
+  const repete = (n, lista) => lista.some((m) => parecidas(n, m));
+
   function filtradas(cat) {
     const q = semAcento(estado.busca.trim());
     return dados.noticias.filter((n) =>
@@ -355,7 +410,7 @@ const INICIAL = /*__DADOS__*/null;
     const cats = [["tudo", "Tudo"], ...Object.entries(dados.categorias)];
     $("#abas").innerHTML = cats.map(([id, nome]) => {
       const novas = dados.noticias.filter((n) => (id === "tudo" || n.cat === id) && ehNova(n) && (!estado.soPT || n.lingua === "pt")).length;
-      return `<button class="aba" role="tab" type="button" data-cat="${id}" aria-selected="${estado.cat === id}">${nome}<span class="n">${novas || ""}</span></button>`;
+      return `<button class="aba" type="button" data-cat="${id}" aria-pressed="${estado.cat === id}">${nome}<span class="n">${novas || ""}</span></button>`;
     }).join("");
   }
 
@@ -389,9 +444,15 @@ const INICIAL = /*__DADOS__*/null;
     </article>`;
   }
 
-  function alertaHTML() {
+  function alertaHTML(naCapa = []) {
     const limite = Date.now() - 72 * 36e5;
-    const itens = dados.noticias.filter((n) => n.stack && Date.parse(n.t) > limite && (estado.cat === "tudo" || estado.cat === "seg")).slice(0, 4);
+    const itens = [];
+    for (const n of dados.noticias) {
+      if (itens.length >= 4) break;
+      if (!n.stack || Date.parse(n.t) <= limite || !(estado.cat === "tudo" || estado.cat === "seg")) continue;
+      if (repete(n, naCapa) || repete(n, itens)) continue;
+      itens.push(n);
+    }
     if (!itens.length) return "";
     return `<section class="alerta"><h2>Na sua stack · 72 h</h2><ul>${itens.map((n) =>
       `<li><a href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a><span class="f">${esc(n.fonte)} · ${relativo(Date.parse(n.t))}</span></li>`).join("")}</ul></section>`;
@@ -405,10 +466,7 @@ const INICIAL = /*__DADOS__*/null;
 
   function desenharConteudo() {
     let lista = filtradas(estado.cat);
-    if (!lista.length) {
-      $("#conteudo").innerHTML = `<p class="vazio">${estado.soNovas ? "Nada novo por aqui. Bom sinal." : "Nenhuma notícia com esse filtro."}</p>`;
-      return;
-    }
+    if (!lista.length) { $("#conteudo").innerHTML = vazioHTML(); return; }
     let html = "";
     if (!estado.busca && lista.length >= 6) {
       const recentes = lista.filter((n) => Date.now() - Date.parse(n.t) < 36 * 36e5);
@@ -418,21 +476,23 @@ const INICIAL = /*__DADOS__*/null;
       const fontesUsadas = new Set([manchete.fid]);
       for (const n of ordenadas) {
         if (destaques.length >= 4) break;
-        if (n === manchete || fontesUsadas.has(n.fid)) continue;
+        if (fontesUsadas.has(n.fid) || repete(n, [manchete, ...destaques])) continue;
         destaques.push(n); fontesUsadas.add(n.fid);
       }
       // poucas fontes na aba: completa até 4, mesmo repetindo fonte
       for (const n of ordenadas) {
         if (destaques.length >= 4) break;
-        if (n !== manchete && !destaques.includes(n)) destaques.push(n);
+        if (!repete(n, [manchete, ...destaques])) destaques.push(n);
       }
       const naCapa = new Set([manchete, ...destaques]);
       lista = lista.filter((n) => !naCapa.has(n));
-      const ultimas = lista.slice(0, 9); // por ordem de chegada: o "plantão" de verdade
-      html += `<section class="capa" aria-label="Capa">
+      const capaLista = [manchete, ...destaques];
+      const ultimas = lista.filter((n) => !repete(n, capaLista)).slice(0, 9); // por ordem de chegada: o "plantão" de verdade
+      html += `<section class="capa" aria-labelledby="titulo-capa">
+        <h2 class="sr" id="titulo-capa">Capa</h2>
         <div>${cardHTML(manchete, "manchete")}</div>
         <div class="destaques">${destaques.map((n) => cardHTML(n, "mini")).join("")}</div>
-        <aside class="lateral">${alertaHTML()}${ultimasHTML(ultimas)}</aside>
+        <aside class="lateral">${alertaHTML(capaLista)}${ultimasHTML(ultimas)}</aside>
       </section>`;
     } else if (!estado.busca) {
       html += `<div class="capa">${alertaHTML()}</div>`;
@@ -450,11 +510,29 @@ const INICIAL = /*__DADOS__*/null;
     $("#conteudo").innerHTML = html + (diaAtual ? "</div>" : "");
   }
 
+  function vazioHTML() {
+    const termo = estado.busca.trim();
+    const nomeAba = estado.cat === "tudo" ? "Tudo" : dados.categorias[estado.cat] ?? estado.cat;
+    const titulo = termo
+      ? `Nada com “${esc(termo)}” em ${esc(nomeAba)}.`
+      : estado.soNovas ? "Nada novo por aqui. Bom sinal." : "Nenhuma notícia com esse filtro.";
+    const saidas = [];
+    if (termo) saidas.push(["limpar-busca", "limpar busca"]);
+    if (estado.cat !== "tudo") saidas.push(["todas-abas", termo ? "buscar em todas as abas" : "ver todas as abas"]);
+    if (estado.soNovas || estado.soPT) saidas.push(["sem-filtros", "tirar filtros"]);
+    const botoes = saidas.map(([a, t], i) => `<button type="button" class="chip${i ? "" : " principal"}" data-acao="${a}">${t}</button>`).join("");
+    return `<div class="vazio"><p>${titulo}</p><small>${dados.noticias.length} notícias de ${dados.fontes.filter((f) => f.ok).length} fontes</small>${botoes ? `<div class="saidas">${botoes}</div>` : ""}</div>`;
+  }
+
   function desenharTopo() {
     $("#data").textContent = `${fmtCurta.format(new Date()).replace(/\./g, "")} ·`;
     $("#atualizado").textContent = `atualizado ${relativo(Date.parse(dados.geradoEm))}`;
     const novas = dados.noticias.filter(ehNova).length;
     $("#contagem").textContent = `${dados.noticias.length} notícias · ${novas} novas`;
+    const ok = dados.fontes.filter((f) => f.ok).length;
+    const gerado = new Date(dados.geradoEm);
+    $("#n-fontes").textContent = ok;
+    $("#rodada").textContent = `Última rodada: ${fmtCurta.format(gerado).replace(/\./g, "")}, ${fmtHora.format(gerado)} · ${ok} de ${dados.fontes.length} fontes no ar`;
     $("#fontes").innerHTML = dados.fontes.map((f) =>
       `<li class="${f.ok ? "" : "erro"}">${esc(f.nome)} ${f.ok ? `(${f.itens})` : "· fora do ar"}</li>`).join("");
   }
@@ -483,6 +561,14 @@ const INICIAL = /*__DADOS__*/null;
   });
   let tBusca;
   $("#busca").addEventListener("input", (e) => { clearTimeout(tBusca); tBusca = setTimeout(() => { estado.busca = e.target.value; desenharConteudo(); }, 150); });
+  $("#conteudo").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-acao]"); if (!b) return;
+    const acao = b.dataset.acao;
+    if (acao === "limpar-busca") { estado.busca = ""; $("#busca").value = ""; }
+    if (acao === "todas-abas") { estado.cat = "tudo"; guardar.set("plantao:aba", "tudo"); }
+    if (acao === "sem-filtros") { estado.soNovas = false; estado.soPT = false; guardar.set("plantao:pt", false); }
+    desenhar();
+  });
   $("#so-novas").addEventListener("click", () => { estado.soNovas = !estado.soNovas; desenhar(); });
   $("#lingua").addEventListener("click", () => { estado.soPT = !estado.soPT; guardar.set("plantao:pt", estado.soPT); desenhar(); });
   $("#abrir-busca").addEventListener("click", () => {
@@ -529,7 +615,7 @@ const INICIAL = /*__DADOS__*/null;
   document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && Date.now() - ultimaBusca > 6e4) atualizar(); });
   setInterval(desenharTopo, 6e4);
 
-  if (!dados) { $("#conteudo").innerHTML = `<p class="vazio">Sem dados ainda.</p>`; return; }
+  if (!dados) { $("#conteudo").innerHTML = `<div class="vazio"><p>Sem dados ainda.</p></div>`; return; }
   desenhar();
 })();
 </script>
