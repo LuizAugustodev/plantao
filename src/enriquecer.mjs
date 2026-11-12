@@ -3,7 +3,9 @@
 import { readFile } from "node:fs/promises";
 
 const UA = "Mozilla/5.0 (compatible; Plantao/1.0; leitor pessoal de noticias)";
-const SEM_PAGINA = new Set(["kev", "ghsa"]); // avisos de segurança: card só de texto
+// Avisos de segurança e releases do GitHub: card só de texto (a página do release só tem
+// "Please refer to CHANGELOG.md" ou lista de commits, e a og:image é genérica).
+const SEM_PAGINA = new Set(["kev", "ghsa", "rel-vite", "rel-fastapi"]);
 const CONCORRENCIA = 10;
 
 async function carregarAnterior(arquivoLocal) {
@@ -60,6 +62,7 @@ export async function enriquecer(dados, arquivoAnterior) {
   const cache = new Map((anterior?.noticias ?? []).map((n) => [n.id, n]));
   const fila = [];
   for (const n of dados.noticias) {
+    if (SEM_PAGINA.has(n.fid)) continue; // nem cache: release antigo trazia o resumo-lixo de volta
     const velho = cache.get(n.id);
     if (velho) {
       if (!n.img && velho.img) n.img = velho.img;

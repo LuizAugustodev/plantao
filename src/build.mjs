@@ -12,6 +12,12 @@ const dados = await coletar();
 await enriquecer(dados, fileURLToPath(new URL("noticias.json", dist)));
 dados.categorias = CATEGORIAS;
 
+// Resumo que se repete em 2+ notícias da mesma fonte é texto padrão do site
+// ("Node.js® is a free, open-source…", "There is a new PHP release in town!"): sai.
+const vezes = new Map();
+for (const n of dados.noticias) if (n.resumo) { const k = `${n.fid}|${n.resumo}`; vezes.set(k, (vezes.get(k) ?? 0) + 1); }
+for (const n of dados.noticias) if (n.resumo && vezes.get(`${n.fid}|${n.resumo}`) > 1) n.resumo = "";
+
 await mkdir(dist, { recursive: true });
 const json = JSON.stringify(dados);
 const modelo = await readFile(new URL("web/index.html", raiz), "utf8");

@@ -2,6 +2,7 @@
 // janela de dias: lanc fica 45 dias no ar, o resto 5.
 // tipo: "feed" (RSS/Atom), "hn" (Hacker News via Algolia), "kev" (CISA KEV), "ghsa" (GitHub Advisories)
 // lingua: "pt" ou "en". max = quantos itens no máximo por fonte.
+// release: release do GitHub; só a versão mais nova, título "Projeto X.Y.Z" e sem resumo.
 
 export const CATEGORIAS = {
   ia: "IA",
@@ -41,8 +42,8 @@ export const FONTES = [
   { id: "rel-php", nome: "PHP", tipo: "feed", url: "https://www.php.net/releases/feed.php", cat: "lanc", lingua: "en", max: 5 },
   { id: "rel-postgres", nome: "PostgreSQL", tipo: "feed", url: "https://www.postgresql.org/news.rss", cat: "lanc", lingua: "en", max: 5 },
   { id: "rel-react", nome: "React", tipo: "feed", url: "https://react.dev/rss.xml", cat: "lanc", lingua: "en", max: 4 },
-  { id: "rel-vite", nome: "Vite", tipo: "feed", url: "https://github.com/vitejs/vite/releases.atom", cat: "lanc", lingua: "en", max: 4, soEstavel: true },
-  { id: "rel-fastapi", nome: "FastAPI", tipo: "feed", url: "https://github.com/fastapi/fastapi/releases.atom", cat: "lanc", lingua: "en", max: 4, soEstavel: true },
+  { id: "rel-vite", nome: "Vite", tipo: "feed", url: "https://github.com/vitejs/vite/releases.atom", cat: "lanc", lingua: "en", max: 1, soEstavel: true, release: true },
+  { id: "rel-fastapi", nome: "FastAPI", tipo: "feed", url: "https://github.com/fastapi/fastapi/releases.atom", cat: "lanc", lingua: "en", max: 1, soEstavel: true, release: true },
   { id: "rel-godot", nome: "Godot", tipo: "feed", url: "https://godotengine.org/rss.xml", cat: "lanc", lingua: "en", max: 4 },
   { id: "rel-ts", nome: "TypeScript", tipo: "feed", url: "https://devblogs.microsoft.com/typescript/feed/", cat: "lanc", lingua: "en", max: 4 },
 ];

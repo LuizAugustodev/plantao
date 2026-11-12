@@ -115,6 +115,14 @@ async function coletarFonte(f) {
     case "feed": {
       let itens = lerFeed(await baixar(f.url));
       if (f.soEstavel) itens = itens.filter((i) => !/(alpha|beta|rc|canary|nightly|pre)[\.\d-]*/i.test(i.titulo));
+      // Release do GitHub vem só com o número ("v8.3.8") e um resumo que é lista de commits:
+      // vira "Vite 8.3.8" e sem linha fina.
+      if (f.release) itens = itens.map((i) => ({
+        ...i,
+        titulo: new RegExp(`\\b${f.nome}\\b`, "i").test(i.titulo) ? i.titulo : `${f.nome} ${i.titulo.replace(/^v(?=\d)/i, "")}`,
+        resumo: "",
+        img: "",
+      }));
       return itens;
     }
     case "hn": {
