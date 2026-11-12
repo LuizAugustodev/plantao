@@ -3,6 +3,7 @@
 **Jornal de tecnologia que se monta sozinho.** Junta 26 fontes (RSS, Hacker News, CISA e GitHub Advisories), classifica cada notícia por editoria e publica uma capa nova várias vezes por dia, sem servidor e sem banco de dados.
 
 [![Publicação](https://github.com/LuizAugustodev/plantao/actions/workflows/atualizar.yml/badge.svg)](https://github.com/LuizAugustodev/plantao/actions/workflows/atualizar.yml)
+![Lighthouse no celular: 97, 100, 100, 100](https://img.shields.io/badge/Lighthouse%20celular-97%20%C2%B7%20100%20%C2%B7%20100%20%C2%B7%20100-2ea043)
 ![JavaScript sem framework](https://img.shields.io/badge/JS-sem%20framework-a37f00)
 ![Custo](https://img.shields.io/badge/custo-R%24%200-0969da)
 
@@ -16,7 +17,8 @@
 - **Cinco editorias:** IA, Segurança, Dev, Lançamentos e Brasil. A categoria vem da fonte e é corrigida por palavras-chave.
 - **Alerta "na sua stack":** falha de segurança ou notícia que cita React, FastAPI, PostgreSQL e o resto do que eu uso aparece em destaque por 72 h.
 - **"Novo" desde a última visita**, busca com a tecla `/`, filtro "só PT", tema claro e escuro.
-- **Mesma notícia de fontes diferentes não se repete na capa.**
+- **Mesma notícia de fontes diferentes não se repete na capa**, e promoção ou guia de compra nunca entra.
+- **Curtas:** notícia sem foto e sem resumo vira lista compacta do dia, em vez de cartão vazio.
 
 <img src="docs/celular.webp" alt="Plantão no celular, tema claro e escuro" width="520">
 
@@ -35,7 +37,7 @@ GitHub Actions (agendado)
 - **Sem framework e sem API em tempo real.** Um HTML só, com as notícias embutidas: a capa aparece sem esperar requisição nenhuma.
 - **Fonte que cai não derruba a edição.** Cada coleta é isolada; o rodapé mostra quais fontes estão fora do ar.
 - **Fotos reduzidas e em WebP** pelo [wsrv.nl](https://wsrv.nl). Se a foto quebrar, o cartão vira capa tipográfica na cor da editoria.
-- **Tipografia de jornal:** Newsreader nos títulos, IBM Plex Mono nos metadados.
+- **Tipografia de jornal:** Newsreader nos títulos, IBM Plex Mono nos metadados, servidas pelo próprio site (nada de CSS externo travando a primeira pintura).
 
 ## Rodar local
 
