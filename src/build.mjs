@@ -1,5 +1,5 @@
 // Gera dist/index.html (com as notícias embutidas) e dist/noticias.json.
-import { readFile, writeFile, mkdir, copyFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile, readdir } from "node:fs/promises";
 import { coletar } from "./coletar.mjs";
 import { enriquecer } from "./enriquecer.mjs";
 import { fileURLToPath } from "node:url";
@@ -20,6 +20,8 @@ const html = modelo.replace("/*__DADOS__*/null", json.replace(/</g, "\\u003c"));
 await writeFile(new URL("index.html", dist), html);
 await writeFile(new URL("noticias.json", dist), json);
 for (const f of ["favicon.svg", "_headers", "og-image.png"]) await copyFile(new URL(`web/${f}`, raiz), new URL(f, dist));
+await mkdir(new URL("fonts/", dist), { recursive: true });
+for (const f of await readdir(new URL("web/fonts/", raiz))) await copyFile(new URL(`web/fonts/${f}`, raiz), new URL(`fonts/${f}`, dist));
 
 const falhas = dados.fontes.filter((f) => !f.ok);
 console.log(`${dados.noticias.length} notícias de ${dados.fontes.length - falhas.length}/${dados.fontes.length} fontes`);

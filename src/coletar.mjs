@@ -1,6 +1,6 @@
 // Busca todas as fontes e devolve a lista de notícias normalizada.
 import { XMLParser } from "fast-xml-parser";
-import { FONTES, PALAVRAS_SEG, PALAVRAS_IA, PALAVRAS_DEV, MINHA_STACK } from "./fontes.mjs";
+import { FONTES, PALAVRAS_SEG, PALAVRAS_IA, PALAVRAS_DEV, MINHA_STACK, PROMOCAO } from "./fontes.mjs";
 
 const UA = "Plantao/1.0 (leitor pessoal de noticias; +https://github.com)";
 const DIAS = { lanc: 45, padrao: 5 }; // janela de notícias por categoria
@@ -166,9 +166,12 @@ function categorizar(f, n) {
   const alvo = `${n.titulo} ${n.resumo ?? ""}`;
   let cat = f.cat;
   if (f.soTema && /\(YC [A-Z]?\d+\) is hiring/i.test(n.titulo)) return null; // anúncio de vaga
+  let titulo = n.titulo.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // sem acento: em "preços" o \b achava "os"
+  if (f.lingua === "pt") titulo = titulo.replace(/\bos\b/gi, " "); // em português "os" é artigo, não sistema operacional
+  if (PROMOCAO.test(titulo)) return null; // promoção e guia de compra
   if (cat === "dev" && PALAVRAS_SEG.test(alvo)) cat = "seg";
   else if (cat === "dev" && PALAVRAS_IA.test(n.titulo)) cat = "ia";
-  else if (f.soTema && !PALAVRAS_DEV.test(n.titulo)) return null; // fora do tema (carro, política, ciência geral…)
+  else if (f.soTema && !PALAVRAS_DEV.test(titulo) && !PALAVRAS_IA.test(titulo) && !PALAVRAS_SEG.test(alvo)) return null; // fora do tema (carro, política, ciência geral…)
   return cat;
 }
 

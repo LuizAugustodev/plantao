@@ -18,8 +18,8 @@ export const FONTES = [
   { id: "github-blog", nome: "GitHub Blog", tipo: "feed", url: "https://github.blog/feed/", cat: "dev", lingua: "en", max: 10 },
   { id: "cloudflare", nome: "Cloudflare Blog", tipo: "feed", url: "https://blog.cloudflare.com/rss/", cat: "dev", lingua: "en", max: 8 },
   { id: "infoq", nome: "InfoQ", tipo: "feed", url: "https://feed.infoq.com/", cat: "dev", lingua: "en", max: 10 },
-  { id: "tecnoblog", nome: "Tecnoblog", tipo: "feed", url: "https://tecnoblog.net/feed/", cat: "br", lingua: "pt", max: 12 },
-  { id: "canaltech", nome: "Canaltech", tipo: "feed", url: "https://canaltech.com.br/rss/", cat: "br", lingua: "pt", max: 8 },
+  { id: "tecnoblog", nome: "Tecnoblog", tipo: "feed", url: "https://tecnoblog.net/feed/", cat: "br", lingua: "pt", max: 12, soTema: true },
+  { id: "canaltech", nome: "Canaltech", tipo: "feed", url: "https://canaltech.com.br/rss/", cat: "br", lingua: "pt", max: 8, soTema: true },
 
   // IA
   { id: "openai", nome: "OpenAI", tipo: "feed", url: "https://openai.com/news/rss.xml", cat: "ia", lingua: "en", max: 8 },
@@ -50,6 +50,10 @@ export const FONTES = [
 // Palavras que puxam a notícia pra outra categoria.
 export const PALAVRAS_SEG = /\b(cve-\d|vulnerab|exploit|ransomware|malware|zero-day|0-day|breach|leak|vazament|vazou|falha (de|crítica)|ataque hacker|phishing|backdoor|patch tuesday|supply.chain)/i;
 export const PALAVRAS_IA = /\b(ia|ai|llms?|gpt|claude|gemini|openai|anthropic|chatgpt|copilot|deepseek|mistral|llama|agente de ia|inteligência artificial|machine learning|transformer)\b/i;
+
+// Promoção e guia de compra: nunca entram (os portais BR publicam muito disso em datas como 11.11).
+// Testada contra o título sem acento (ver coletar.mjs), por isso "promocao", "preco".
+export const PROMOCAO = /(\b(1[0-2]|[1-9])\.\2\b|black friday|black november|cyber monday|prime day|\d+ ?% ?off\b|\bdesconto|\bcupo(m|ns)\b|\bpromoc(ao|oes|ional)|\boferta|cai de preco|volta a cair|(muito|mais) barato|menor preco|sem juros|(melhor|melhores) .{0,40}para comprar|vale a pena comprar|onde comprar)/i;
 
 // A stack do Luiz: notícia de segurança que cita isso ganha o selo "sua stack".
 export const MINHA_STACK = /\b(php|wordpress|laravel|composer|npm|node\.?js|react|vite|next\.?js|python|pip|pypi|fastapi|django|postgres(ql)?|supabase|godot|cloudflare|github actions)\b/i;

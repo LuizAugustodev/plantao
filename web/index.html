@@ -12,8 +12,8 @@
 <meta property="og:title" content="Plantão: jornal de tecnologia que se atualiza sozinho">
 <meta property="og:description" content="Dev, IA, segurança, lançamentos e fontes do Brasil num jornal só, atualizado várias vezes por dia.">
 <meta property="og:url" content="https://luizaugustodev.github.io/plantao/">
-<meta property="og:image" content="https://luizaugustodev.github.io/plantao/og-image.png">
-<meta property="og:image:secure_url" content="https://luizaugustodev.github.io/plantao/og-image.png">
+<meta property="og:image" content="https://luizaugustodev.github.io/plantao/og-image.png?v=2">
+<meta property="og:image:secure_url" content="https://luizaugustodev.github.io/plantao/og-image.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
@@ -21,16 +21,21 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Plantão: jornal de tecnologia que se atualiza sozinho">
 <meta name="twitter:description" content="Dev, IA, segurança, lançamentos e fontes do Brasil num jornal só, atualizado várias vezes por dia.">
-<meta name="twitter:image" content="https://luizaugustodev.github.io/plantao/og-image.png">
+<meta name="twitter:image" content="https://luizaugustodev.github.io/plantao/og-image.png?v=2">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#f5f1e8" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121110" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://wsrv.nl">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/plex-mono-500.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+/* Fontes servidas daqui mesmo (subconjunto latin do Google Fonts, licença OFL): sem CSS externo bloqueando a primeira pintura. */
+@font-face { font-family: "Newsreader"; font-style: normal; font-weight: 400 700; font-display: swap; src: url(fonts/newsreader.woff2) format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 400; font-display: swap; src: url(fonts/newsreader-italico.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/plex-mono-400.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url(fonts/plex-mono-500.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 600; font-display: swap; src: url(fonts/plex-mono-600.woff2) format("woff2"); }
 :root {
   --papel: #f5f1e8;
   --cartao: #fffdf8;
@@ -185,6 +190,18 @@ button { font: inherit; color: inherit; }
 .dia { font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); margin: 36px 0 16px; display: flex; align-items: center; gap: 12px; }
 .dia::after { content: ""; flex: 1; height: 1px; background: var(--fio); }
 .grade { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); }
+
+/* Curtas: notícia sem foto e sem linha fina, em lista compacta de 2-3 colunas */
+.curtas { margin-top: 22px; background: var(--cartao); border-radius: 14px; box-shadow: var(--sombra); padding: 16px 20px 8px; }
+.grade + .curtas { margin-top: 22px; }
+.curtas h3 { margin: 0 0 4px; font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); }
+.curtas ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); column-gap: 32px; }
+.curtas li { display: flex; flex-direction: column; gap: 5px; padding: 12px 0; border-top: 1px solid var(--fio); border-left: 3px solid var(--c); padding-left: 12px; margin-top: -1px; }
+.curtas .t { font: 600 17px/1.28 var(--serif); text-wrap: pretty; }
+.curtas .t:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.curtas .f { font: 12px/1.4 var(--mono); color: var(--tinta-3); }
+.curtas .f a { text-decoration: underline; text-underline-offset: 2px; }
+.curtas li.lido .t { color: var(--tinta-3); }
 
 .vazio { text-align: center; padding: 70px 0 40px; }
 .vazio p { margin: 0 0 6px; color: var(--tinta-2); font: italic 22px var(--serif); }
@@ -415,9 +432,17 @@ const INICIAL = /*__DADOS__*/null;
   }
 
   // Foto reduzida e em WebP pelo wsrv.nl (grátis, código aberto); se falhar, volta pra original.
+  const wsrv = (url, w, h) => `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${w}&h=${h}&fit=cover&a=attention&output=webp&q=78`;
   const miniatura = (url, tipo) => {
     const [w, h] = tipo === "manchete" ? [1200, 675] : tipo === "mini" ? [360, 360] : [640, 360];
-    return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${w}&h=${h}&fit=cover&a=attention&output=webp&q=78`;
+    return wsrv(url, w, h);
+  };
+  // Celular não precisa da foto de 1200 px: o navegador escolhe a largura pelo srcset.
+  const larguras = (url, tipo) => {
+    if (tipo === "mini") return "";
+    const ws = tipo === "manchete" ? [480, 720, 960, 1200] : [400, 640];
+    const sizes = tipo === "manchete" ? "(min-width: 1280px) 44vw, (min-width: 900px) 58vw, 100vw" : "(min-width: 640px) 360px, 100vw";
+    return `srcset="${ws.map((w) => `${esc(wsrv(url, w, Math.round(w * 9 / 16)))} ${w}w`).join(", ")}" sizes="${sizes}"`;
   };
 
   function cardHTML(n, tipo = "") {
@@ -431,7 +456,7 @@ const INICIAL = /*__DADOS__*/null;
     const resumo = resumoBom(n);
     const carregar = tipo === "manchete" ? 'fetchpriority="high"' : tipo === "mini" ? "" : 'loading="lazy"';
     const foto = n.img
-      ? `<figure class="foto"><img src="${esc(miniatura(n.img, tipo))}" data-orig="${esc(n.img)}" alt="" ${carregar} decoding="async" referrerpolicy="no-referrer"></figure>`
+      ? `<figure class="foto"><img src="${esc(miniatura(n.img, tipo))}" ${larguras(n.img, tipo)} data-orig="${esc(n.img)}" alt="" ${carregar} decoding="async" referrerpolicy="no-referrer"></figure>`
       : "";
     return `<article class="card cat cat-${esc(n.cat)} ${tipo}${n.img ? "" : " texto"}${lidos.has(n.id) ? " lido" : ""}">
       ${foto}
@@ -497,17 +522,30 @@ const INICIAL = /*__DADOS__*/null;
     } else if (!estado.busca) {
       html += `<div class="capa">${alertaHTML()}</div>`;
     }
-    let diaAtual = "";
+    // Agrupa por dia. Sem foto e sem linha fina não rende cartão: vai pras "Curtas" do dia.
+    const dias = [];
     for (const n of lista) {
-      const d = new Date(n.t); const k = chaveDia(d);
-      if (k !== diaAtual) {
-        if (diaAtual) html += "</div>";
-        html += `<h2 class="dia">${rotuloDia(d)}</h2><div class="grade">`;
-        diaAtual = k;
-      }
-      html += cardHTML(n);
+      const k = chaveDia(new Date(n.t));
+      if (dias.at(-1)?.k !== k) dias.push({ k, d: new Date(n.t), cards: [], curtas: [] });
+      (n.img || resumoBom(n) ? dias.at(-1).cards : dias.at(-1).curtas).push(n);
     }
-    $("#conteudo").innerHTML = html + (diaAtual ? "</div>" : "");
+    for (const dia of dias) {
+      html += `<h2 class="dia">${rotuloDia(dia.d)}</h2>`;
+      if (dia.cards.length) html += `<div class="grade">${dia.cards.map((n) => cardHTML(n)).join("")}</div>`;
+      if (dia.curtas.length) html += curtasHTML(dia.curtas, dia.cards.length > 0);
+    }
+    $("#conteudo").innerHTML = html;
+  }
+
+  function curtasHTML(itens, comTitulo) {
+    return `<section class="curtas">${comTitulo ? `<h3>Curtas</h3>` : ""}<ul>${itens.map((n) => {
+      const hn = n.extra?.discussao ? `<a href="${esc(n.extra.discussao)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${n.extra.pontos} pts</a>` : "";
+      return `<li class="cat cat-${esc(n.cat)}${lidos.has(n.id) ? " lido" : ""}">
+        <span class="chapeu">${esc(dados.categorias[n.cat] ?? "")}${ehNova(n) ? '<span class="novo">novo</span>' : ""}</span>
+        <a class="t" href="${esc(n.url)}" target="_blank" rel="noopener" data-id="${esc(n.id)}">${esc(n.titulo)}</a>
+        <span class="f">${esc(n.fonte)} · <time datetime="${n.t}">${relativo(Date.parse(n.t))}</time>${hn ? ` · ${hn}` : ""}</span>
+      </li>`;
+    }).join("")}</ul></section>`;
   }
 
   function vazioHTML() {
@@ -547,7 +585,7 @@ const INICIAL = /*__DADOS__*/null;
   document.addEventListener("error", (e) => {
     const img = e.target;
     if (img.tagName !== "IMG") return;
-    if (img.dataset.orig && img.src !== img.dataset.orig) { img.src = img.dataset.orig; return; }
+    if (img.dataset.orig && img.src !== img.dataset.orig) { img.removeAttribute("srcset"); img.removeAttribute("sizes"); img.src = img.dataset.orig; return; }
     const card = img.closest(".card");
     img.closest(".foto")?.remove();
     card?.classList.add("texto");
@@ -582,7 +620,7 @@ const INICIAL = /*__DADOS__*/null;
     const a = e.target.closest("a[data-id]"); if (!a) return;
     lidos.add(a.dataset.id);
     guardar.set("plantao:lidos", [...lidos].slice(-800));
-    const card = a.closest(".card, .ultimas li");
+    const card = a.closest(".card, .ultimas li, .curtas li");
     if (card) { card.classList.add("lido"); card.classList.remove("novo"); card.querySelector(".chapeu .novo")?.remove(); }
     desenharAbas();
   });

@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- Fonte da og-image (1200x627). Pra gerar o PNG:
+     msedge --headless=new --hide-scrollbars --window-size=1200,627 --screenshot=web/og-image.png docs/og-image.html -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: "Newsreader"; font-weight: 400 700; src: url(../web/fonts/newsreader.woff2) format("woff2"); }
+@font-face { font-family: "Newsreader"; font-style: italic; font-weight: 400; src: url(../web/fonts/newsreader-italico.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url(../web/fonts/plex-mono-500.woff2) format("woff2"); }
+@font-face { font-family: "IBM Plex Mono"; font-weight: 600; src: url(../web/fonts/plex-mono-600.woff2) format("woff2"); }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1200px; height: 627px; overflow: hidden; }
+body { background: #f5f1e8; color: #1a1813; padding: 36px 56px; display: flex; flex-direction: column; }
+.topo { border-top: 3px solid #1a1813; border-bottom: 1px solid #dcd4c3; padding: 16px 0 14px; display: flex; justify-content: space-between; font: 600 16px/1 "IBM Plex Mono"; letter-spacing: .14em; text-transform: uppercase; }
+.topo span:first-child { color: #57524a; }
+.topo span:last-child { color: #c8371d; display: flex; align-items: center; gap: 10px; }
+.topo span:last-child::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #c8371d; }
+.logo { margin-top: 56px; font: 700 212px/.9 "Newsreader"; font-variation-settings: "opsz" 72; letter-spacing: -.045em; }
+.logo b { color: #c8371d; }
+.linha { margin-top: 30px; font: italic 400 44px/1 "Newsreader"; color: #57524a; letter-spacing: -.01em; }
+.base { margin-top: auto; border-top: 1px solid #dcd4c3; border-bottom: 1px solid #1a1813; padding: 16px 0 16px; display: flex; align-items: center; gap: 10px; }
+.chip { display: flex; align-items: center; gap: 9px; border: 1px solid #dcd4c3; background: #fffdf8; border-radius: 99px; padding: 8px 15px; font: 600 17px/1 "IBM Plex Mono"; }
+.chip i { width: 10px; height: 10px; border-radius: 50%; }
+.url { margin-left: auto; font: 500 17px/1 "IBM Plex Mono"; color: #6a6457; letter-spacing: .02em; }
+</style>
+</head>
+<body>
+  <div class="topo"><span>Edição contínua</span><span>Várias edições por dia</span></div>
+  <div class="logo">Plantão<b>.</b></div>
+  <div class="linha">jornal de tecnologia que se atualiza sozinho</div>
+  <div class="base">
+    <span class="chip"><i style="background:#1d68b0"></i>dev</span>
+    <span class="chip"><i style="background:#6a46d6"></i>IA</span>
+    <span class="chip"><i style="background:#c8371d"></i>segurança</span>
+    <span class="chip"><i style="background:#2c7a4b"></i>lançamentos</span>
+    <span class="chip"><i style="background:#8f6406"></i>Brasil</span>
+    <span class="url">luizaugustodev.github.io/plantao</span>
+  </div>
+</body>
+</html>
