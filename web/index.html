@@ -46,9 +46,10 @@
   --fio: #dcd4c3;
   --acento: #c8371d;
   --acento-fundo: #f6dcd3;
+  --acento-texto: #b02e16; /* vermelho pra texto pequeno: 5:1 no fundo rosado */
   --ambar: #8a5a00;
   --ambar-fundo: #f3e3bf;
-  --c-ia: #6a46d6; --c-seg: #c8371d; --c-dev: #1d68b0; --c-lanc: #2c7a4b; --c-br: #8f6406;
+  --c-ia: #6a46d6; --c-seg: #b02e16; --c-dev: #1d68b0; --c-lanc: #2c7a4b; --c-br: #8f6406;
   --sombra: 0 1px 2px rgb(40 30 10 / .06), 0 8px 24px -12px rgb(40 30 10 / .18);
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -59,7 +60,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #948d7f;
-    --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f;
+    --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --acento-texto: #ff6b4f; --ambar: #f0b545; --ambar-fundo: #33270f;
     --c-ia: #a68bff; --c-seg: #ff6b4f; --c-dev: #5aa9f0; --c-lanc: #5cc98a; --c-br: #e9b23c;
     --sombra: 0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
     color-scheme: dark;
@@ -67,7 +68,7 @@
 }
 :root[data-theme="dark"] {
   --papel: #121110; --cartao: #1b1a17; --papel-2: #24221e; --tinta: #eee9de; --tinta-2: #b3ac9c; --tinta-3: #948d7f;
-  --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --ambar: #f0b545; --ambar-fundo: #33270f;
+  --fio: #2f2c27; --acento: #ff6b4f; --acento-fundo: #3a1a13; --acento-texto: #ff6b4f; --ambar: #f0b545; --ambar-fundo: #33270f;
   --c-ia: #a68bff; --c-seg: #ff6b4f; --c-dev: #5aa9f0; --c-lanc: #5cc98a; --c-br: #e9b23c;
   --sombra: 0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
   color-scheme: dark;
@@ -100,7 +101,7 @@ button { font: inherit; color: inherit; }
 }
 .aba:hover { color: var(--tinta); }
 .aba[aria-pressed="true"] { color: var(--tinta); border-bottom-color: var(--acento); }
-.aba .n { font: 500 10.5px/1 var(--mono); color: var(--acento); background: var(--acento-fundo); padding: 3px 5px; border-radius: 99px; }
+.aba .n { font: 500 10.5px/1 var(--mono); color: var(--acento-texto); background: var(--acento-fundo); padding: 3px 5px; border-radius: 99px; }
 .aba .n:empty { display: none; }
 
 .acoes, .filtros { display: flex; align-items: center; gap: 8px; }
@@ -163,7 +164,7 @@ button { font: inherit; color: inherit; }
 .rodape-card a { position: relative; z-index: 1; color: var(--tinta-3); text-decoration: underline; text-underline-offset: 2px; }
 .selo { font: 600 10px/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; padding: 3px 6px; border-radius: 4px; }
 .selo.stack { background: var(--ambar-fundo); color: var(--ambar); }
-.selo.explorada, .selo.crítica { background: var(--acento-fundo); color: var(--acento); }
+.selo.explorada, .selo.crítica { background: var(--acento-fundo); color: var(--acento-texto); }
 .selo.alta, .selo.lingua { border: 1px solid var(--fio); color: var(--tinta-2); }
 
 /* Cartão sem foto: capa tipográfica com a cor da categoria */
